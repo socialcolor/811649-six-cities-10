@@ -4,7 +4,7 @@ type MainScreenProps = {
   placesCount: number;
 }
 
-function Main({placesCount}: MainScreenProps): JSX.Element {
+function MainScreen({ placesCount }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -95,7 +95,7 @@ function Main({placesCount}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({length:placesCount}, (element, index) => <Place key={index}/>)}
+                {Array.from({ length: placesCount }, (element, index) => <Place key={index} />)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -108,4 +108,4 @@ function Main({placesCount}: MainScreenProps): JSX.Element {
   );
 }
 
-export default Main;
+export default MainScreen;

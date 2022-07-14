@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
-const Setting = {
+const Settings = {
   PLACES_COUNT: 5,
 };
 
@@ -12,6 +12,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App placesCount = {Setting.PLACES_COUNT}/>
+    <App placesCount = {Settings.PLACES_COUNT}/>
   </React.StrictMode>,
 );

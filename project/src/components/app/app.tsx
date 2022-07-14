@@ -1,11 +1,11 @@
-import Main from '../../pages/main/main';
+import MainScreen from '../../pages/main-screen/main-screen';
 
 type AppScreenProps = {
   placesCount: number;
 }
 
 function App({placesCount}: AppScreenProps): JSX.Element {
-  return <Main placesCount = {placesCount} />;
+  return <MainScreen placesCount = {placesCount} />;
 }
 
 export default App;
