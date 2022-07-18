@@ -1,4 +1,4 @@
-function PropertyScreen(): JSX.Element {
+export default function PropertyScreen(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -335,5 +335,3 @@ function PropertyScreen(): JSX.Element {
     </div>
   );
 }
-
-export default PropertyScreen;

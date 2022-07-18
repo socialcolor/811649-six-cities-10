@@ -4,8 +4,6 @@ type AppScreenProps = {
   placesCount: number;
 }
 
-function App({placesCount}: AppScreenProps): JSX.Element {
+export default function App({placesCount}: AppScreenProps): JSX.Element {
   return <MainScreen placesCount = {placesCount} />;
 }
-
-export default App;

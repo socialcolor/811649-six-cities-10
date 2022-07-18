@@ -1,4 +1,4 @@
-function PropertyNotLoggedScreen(): JSX.Element {
+export default function PropertyNotLoggedScreen(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -283,5 +283,3 @@ function PropertyNotLoggedScreen(): JSX.Element {
     </div>
   );
 }
-
-export default PropertyNotLoggedScreen;

@@ -1,4 +1,4 @@
-function MainEpmtyScreen(): JSX.Element {
+export default function MainEpmtyScreen(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -83,5 +83,3 @@ function MainEpmtyScreen(): JSX.Element {
     </div>
   );
 }
-
-export default MainEpmtyScreen;
