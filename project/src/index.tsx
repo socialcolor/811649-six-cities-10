@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import {AuthorizationStatus} from '../src/const';
 
 const Settings = {
   PLACES_COUNT: 5,
+  authorizationStatus: AuthorizationStatus.NoAuth,
 };
 
 const root = ReactDOM.createRoot(
@@ -12,6 +14,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App placesCount = {Settings.PLACES_COUNT}/>
+    <App placesCount = {Settings.PLACES_COUNT} authorizationStatus = {Settings.authorizationStatus} />
   </React.StrictMode>,
 );
