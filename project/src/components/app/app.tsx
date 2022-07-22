@@ -22,16 +22,16 @@ export default function App({placesCount, authorizationStatus}: AppScreenProps):
 
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Root} element={<MainScreen placesCount={placesCount} />} />
+          <Route path={AppRoute.Root} element={<MainScreen placesCount={placesCount} authorizationStatus={authorizationStatus} />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
-              <FavoritesScreen />
+              <FavoritesScreen authorizationStatus={authorizationStatus} />
             </PrivateRoute>
           }
           />
           <Route path={AppRoute.Room} element={<PropertyScreen authorizationStatus={authorizationStatus} />} />
-          <Route path="*" element={<NotFoundScreen />} />
+          <Route path="*" element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
         </Routes>
 
       </BrowserRouter>

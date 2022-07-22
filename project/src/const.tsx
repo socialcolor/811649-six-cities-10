@@ -2,7 +2,7 @@ const enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Room = '/offers/:id'
+  Room = '/offer/:id'
 }
 
 const enum AuthorizationStatus {
