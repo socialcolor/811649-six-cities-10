@@ -1,12 +1,14 @@
-import Place from '../../components/place/place';
+import Offer from '../../components/offer/offer';
+import { Hotels } from '../../types/hotel';
 import Header from '../../components/header/header';
 
 type MainScreenProps = {
-  placesCount: number;
+  offersCount: number;
+  offers: Hotels;
   authorizationStatus: string;
 }
 
-export default function MainScreen({ placesCount, authorizationStatus}: MainScreenProps): JSX.Element {
+export default function MainScreen({offersCount, offers, authorizationStatus }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header authorizationStatus={authorizationStatus} />
@@ -62,7 +64,7 @@ export default function MainScreen({ placesCount, authorizationStatus}: MainScre
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
+                <ul className="places__options places__options--custom places__options">
                   <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                   <li className="places__option" tabIndex={0}>Price: low to high</li>
                   <li className="places__option" tabIndex={0}>Price: high to low</li>
@@ -70,7 +72,7 @@ export default function MainScreen({ placesCount, authorizationStatus}: MainScre
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({ length: placesCount }, (element, index) => <Place key={index} />)}
+                {offers.map((offer) => <Offer key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">

@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {AuthorizationStatus} from '../src/const';
+import {offers} from './mocks/offers';
 
 const Settings = {
-  PLACES_COUNT: 5,
+  OFFERS_COUNT: 5,
   authorizationStatus: AuthorizationStatus.NoAuth,
 };
 
@@ -14,6 +15,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App placesCount = {Settings.PLACES_COUNT} authorizationStatus = {Settings.authorizationStatus} />
+    <App offersCount = {Settings.OFFERS_COUNT} offers={offers} authorizationStatus = {Settings.authorizationStatus} />
   </React.StrictMode>,
 );

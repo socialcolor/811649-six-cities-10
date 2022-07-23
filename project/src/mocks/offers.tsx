@@ -1,6 +1,6 @@
-import { Hotel } from '../types/hotel';
+import { Hotels } from '../types/hotel';
 
-export const hotels: Hotel = [
+export const offers: Hotels = [
   {
     city: {
       name: 'Dusseldorf',
@@ -29,7 +29,7 @@ export const hotels: Hotel = [
     ],
     title: 'Penthouse, 4-5 rooms + 5 balconies',
     isFavorite: false,
-    isPremium: false,
+    isPremium: true,
     rating: 4.1,
     type: 'hotel',
     bedrooms: 2,
@@ -135,7 +135,7 @@ export const hotels: Hotel = [
     ],
     title: 'Nice, cozy, warm big bed apartment',
     isFavorite: false,
-    isPremium: false,
+    isPremium: true,
     rating: 3,
     type: 'house',
     bedrooms: 4,
