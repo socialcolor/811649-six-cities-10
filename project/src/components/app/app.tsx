@@ -31,7 +31,8 @@ export default function App({offersCount, authorizationStatus, offers}: AppScree
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Room} element={<PropertyScreen authorizationStatus={authorizationStatus} />} />
+          <Route path={AppRoute.Room} element={<PropertyScreen authorizationStatus={authorizationStatus} offers={offers}/>} />
+          <Route path={AppRoute.NotFoundScreen} element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
           <Route path="*" element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
         </Routes>
 

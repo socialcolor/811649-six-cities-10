@@ -7,9 +7,9 @@ type OfferProps = {
 
 export default function Offer({offer}: OfferProps): JSX.Element {
 
-  function caclRating(rating:number): string {
+  function calcRating(rating:number): string {
     const percentOneStar = 20;
-    return `${(percentOneStar * Math.ceil(rating)).toString()}%`;
+    return `${(percentOneStar * Math.round(rating)).toString()}%`;
   }
 
   return (
@@ -18,7 +18,7 @@ export default function Offer({offer}: OfferProps): JSX.Element {
         {offer.isPremium ? <span>Premium</span> : null}
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Room}>
+        <Link to={AppRoute.Room.replace(':id', (offer.id).toString())}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place" />
         </Link>
       </div>
@@ -37,7 +37,7 @@ export default function Offer({offer}: OfferProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: caclRating(offer.rating) }}></span>
+            <span style={{ width: calcRating(offer.rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
