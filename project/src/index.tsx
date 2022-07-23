@@ -6,7 +6,7 @@ import {offers} from './mocks/offers';
 
 const Settings = {
   OFFERS_COUNT: 5,
-  authorizationStatus: AuthorizationStatus.NoAuth,
+  authorizationStatus: AuthorizationStatus.Auth,
 };
 
 const root = ReactDOM.createRoot(

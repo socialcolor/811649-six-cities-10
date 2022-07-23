@@ -27,7 +27,7 @@ export default function App({offersCount, authorizationStatus, offers}: AppScree
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
-              <FavoritesScreen authorizationStatus={authorizationStatus} />
+              <FavoritesScreen authorizationStatus={authorizationStatus} offers={offers}/>
             </PrivateRoute>
           }
           />
