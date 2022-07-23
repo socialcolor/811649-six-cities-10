@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { AppRoute } from '../../const';
 import { Hotels } from '../../types/hotel';
+import {calcRating} from '../../utils';
 
 type PropertyScreenProps = {
   authorizationStatus: string;
@@ -15,11 +16,6 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
 
   if (offer === undefined) {
     return <Navigate to={AppRoute.NotFoundScreen} />;
-  }
-
-  function calcRating(rating: number): string {
-    const percentOneStar = 20;
-    return `${(percentOneStar * Math.round(rating)).toString()}%`;
   }
 
   return (
