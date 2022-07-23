@@ -5,12 +5,12 @@ type OfferProps = {
   offer: Hotel;
 }
 
-function caclRating(rating:number): string {
-  const percentOneStar = 20;
-  return `${(percentOneStar * Math.ceil(rating)).toString()}%`;
-}
-
 export default function Offer({offer}: OfferProps): JSX.Element {
+
+  function caclRating(rating:number): string {
+    const percentOneStar = 20;
+    return `${(percentOneStar * Math.ceil(rating)).toString()}%`;
+  }
 
   return (
     <article className="cities__card place-card">

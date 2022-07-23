@@ -1,3 +1,5 @@
+const ACTIVE_OFFER_ID = 0;
+
 const enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -11,4 +13,4 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {AppRoute, AuthorizationStatus};
+export {AppRoute, AuthorizationStatus, ACTIVE_OFFER_ID};
