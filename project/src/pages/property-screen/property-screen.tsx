@@ -5,7 +5,7 @@ import { Hotels } from '../../types/hotel';
 import {calcRating} from '../../utils';
 import Header from '../../components/header/header';
 import Review from '../../components/review/review';
-import SendFormComment from '../../components/send-from-comment/send-form-comment';
+import SendCommentForm from '../../components/send-comment-form/send-comment-form';
 
 type PropertyScreenProps = {
   authorizationStatus: string;
@@ -99,7 +99,7 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
                 <Review />
-                <SendFormComment />
+                <SendCommentForm />
               </section>
             </div>
           </div>

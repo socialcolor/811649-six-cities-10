@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function SendFormComment(): JSX.Element {
+export default function SendCommentForm(): JSX.Element {
   const [comment, setComment] = useState('');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [star, setStar] = useState('');
