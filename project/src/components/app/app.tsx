@@ -11,19 +11,18 @@ import PrivateRoute from '../private-route/private-route';
 import {Hotels} from '../../types/hotel';
 
 type AppScreenProps = {
-  offersCount: number;
   authorizationStatus: string;
   offers: Hotels;
 }
 
-export default function App({offersCount, authorizationStatus, offers}: AppScreenProps): JSX.Element {
+export default function App({ authorizationStatus, offers}: AppScreenProps): JSX.Element {
   return (
     <React.Fragment>
       <IconArrowSelected />
 
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Root} element={<MainScreen offersCount={offersCount} offers={offers} authorizationStatus={authorizationStatus}/>} />
+          <Route path={AppRoute.Root} element={<MainScreen offers={offers} authorizationStatus={authorizationStatus}/>} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={authorizationStatus}>

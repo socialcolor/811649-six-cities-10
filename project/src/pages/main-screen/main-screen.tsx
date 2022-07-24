@@ -3,12 +3,11 @@ import Header from '../../components/header/header';
 import OfferList from '../../components/offers-list/offers-list';
 
 type MainScreenProps = {
-  offersCount: number;
   offers: Hotels;
   authorizationStatus: string;
 }
 
-export default function MainScreen({offersCount, offers, authorizationStatus }: MainScreenProps): JSX.Element {
+export default function MainScreen({offers, authorizationStatus }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header authorizationStatus={authorizationStatus} />
