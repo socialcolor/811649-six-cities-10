@@ -2,34 +2,31 @@ import React from 'react';
 import { useState } from 'react';
 export default function SendCommentForm(): JSX.Element {
   const [comment, setComment] = useState('');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rating, setRating] = useState('');
+  const title: {
+    [index: string]: string;
+  } = {
+    1: 'terribly',
+    2: 'badly',
+    3: 'not bad',
+    4: 'good',
+    5: 'perfect',
+  };
 
   return (
     <form className="reviews__form form" action="/#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {Array.from({ length: 5 }, (element, index) => index + 1).reverse().map((element) => {
-          const title: {
-            [index: string]: string;
-          } = {
-            1: 'terribly',
-            2: 'badly',
-            3: 'not bad',
-            4: 'good',
-            5: 'perfect',
-          };
-          return (
-            <React.Fragment key={element}>
-              <input className="form__rating-input visually-hidden" name="rating" value={element} id={`${element}-stars`} type="radio" onChange={({target}) => setRating(target.value)} checked={element.toString() === rating} />
-              <label htmlFor={`${element}-stars`} className="reviews__rating-label form__rating-label" title={title[element]}>
-                <svg className="form__star-image" width="37" height="33">
-                  <use xlinkHref="#icon-star"></use>
-                </svg>
-              </label>
-            </React.Fragment>
-          );
-        }
+        {Array.from({ length: 5 }, (element, index) => index + 1).reverse().map((element) => (
+          <React.Fragment key={element}>
+            <input className="form__rating-input visually-hidden" name="rating" value={element} id={`${element}-stars`} type="radio" onChange={({ target }) => setRating(target.value)} checked={element.toString() === rating} />
+            <label htmlFor={`${element}-stars`} className="reviews__rating-label form__rating-label" title={title[element]}>
+              <svg className="form__star-image" width="37" height="33">
+                <use xlinkHref="#icon-star"></use>
+              </svg>
+            </label>
+          </React.Fragment>
+        )
         )}
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" value={comment} name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={({ target }) => setComment(target.value)}>{comment}
