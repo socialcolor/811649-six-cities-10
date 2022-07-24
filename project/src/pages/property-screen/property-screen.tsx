@@ -86,9 +86,7 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
                   <span className="property__user-name">
                     {offer.host.name}
                   </span>
-                  <span className="property__user-status">
-                    {offer.host.isPro ? 'Pro' : null}
-                  </span>
+                  {offer.host.isPro && <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
