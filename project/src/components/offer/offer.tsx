@@ -1,17 +1,13 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import { Hotel } from '../../types/hotel';
+import {calcRating} from '../../utils';
+
 type OfferProps = {
   offer: Hotel;
 }
 
 export default function Offer({offer}: OfferProps): JSX.Element {
-
-  function calcRating(rating:number): string {
-    const percentOneStar = 20;
-    return `${(percentOneStar * Math.round(rating)).toString()}%`;
-  }
-
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
