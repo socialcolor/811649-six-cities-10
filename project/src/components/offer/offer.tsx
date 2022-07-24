@@ -15,7 +15,7 @@ export default function Offer({offer}: OfferProps): JSX.Element {
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
-        {offer.isPremium ? <span>Premium</span> : null}
+        {offer.isPremium && <span>Premium</span>}
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={AppRoute.Room.replace(':id', (offer.id).toString())}>
