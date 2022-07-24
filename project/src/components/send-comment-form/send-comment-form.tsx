@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function SendCommentForm(): JSX.Element {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
-  const title: {
+  const labelTitle: {
     [index: string]: string;
   } = {
     1: 'terribly',
@@ -20,7 +20,7 @@ export default function SendCommentForm(): JSX.Element {
         {Array.from({ length: 5 }, (element, index) => index + 1).reverse().map((element) => (
           <React.Fragment key={element}>
             <input className="form__rating-input visually-hidden" name="rating" value={element} id={`${element}-stars`} type="radio" onChange={({ target }) => setRating(target.value)} checked={element.toString() === rating} />
-            <label htmlFor={`${element}-stars`} className="reviews__rating-label form__rating-label" title={title[element]}>
+            <label htmlFor={`${element}-stars`} className="reviews__rating-label form__rating-label" title={labelTitle[element]}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
