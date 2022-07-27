@@ -14,12 +14,4 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-const enum Cities {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Admsterdam = 'Admsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
-}
-export {AppRoute, AuthorizationStatus, ACTIVE_OFFER_ID, Cities};
+export {AppRoute, AuthorizationStatus, ACTIVE_OFFER_ID};
