@@ -1,13 +1,17 @@
-import Logo from '../../components/logo/logo';
+import Header from '../../components/header/header';
 
-export default function MainEpmtyScreen(): JSX.Element {
+type MainEpmtyScreenProps = {
+  authorizationStatus: string;
+}
+
+export default function MainEpmtyScreen({authorizationStatus}: MainEpmtyScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo />
+              <Header authorizationStatus={authorizationStatus} />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">

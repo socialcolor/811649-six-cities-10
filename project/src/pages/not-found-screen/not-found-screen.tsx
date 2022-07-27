@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
-import Logo from '../../components/logo/logo';
-export default function NotFoundScreen(): JSX.Element {
+import Header from '../../components/header/header';
+
+type NotFoundScreenProps = {
+  authorizationStatus: string;
+}
+
+export default function NotFoundScreen({authorizationStatus}: NotFoundScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo />
+              <Header authorizationStatus={authorizationStatus} />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">

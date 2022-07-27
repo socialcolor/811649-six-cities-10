@@ -1,8 +1,11 @@
+const ACTIVE_OFFER_ID = 0;
+
 const enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Room = '/offers/:id'
+  Room = '/offer/:id',
+  NotFoundScreen = '/NotFoundScreen',
 }
 
 const enum AuthorizationStatus {
@@ -11,4 +14,4 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {AppRoute, AuthorizationStatus};
+export {AppRoute, AuthorizationStatus, ACTIVE_OFFER_ID};
