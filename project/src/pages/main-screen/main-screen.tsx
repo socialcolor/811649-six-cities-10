@@ -1,6 +1,7 @@
 import { Hotels } from '../../types/hotel';
 import Header from '../../components/header/header';
 import OfferList from '../../components/offers-list/offers-list';
+import Map from '../../components/map/map';
 
 type MainScreenProps = {
   offers: Hotels;
@@ -54,7 +55,7 @@ export default function MainScreen({offers, authorizationStatus }: MainScreenPro
           <div className="cities__places-container container">
             <OfferList offers={offers} />
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers} />
             </div>
           </div>
         </div>

@@ -14,4 +14,18 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {AppRoute, AuthorizationStatus, ACTIVE_OFFER_ID};
+const cities = {
+  amsterdam: {
+    location: {
+      latitude: 52.37454,
+      longitude: 4.897976,
+      zoom: 12
+    }
+  }
+};
+
+const URL_MARKER_DEFAULT =
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+
+
+export { AppRoute, AuthorizationStatus, ACTIVE_OFFER_ID, cities, URL_MARKER_DEFAULT };
