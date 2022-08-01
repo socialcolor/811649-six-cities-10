@@ -9,6 +9,7 @@ import PropertyScreen from '../../pages/property-screen/property-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import {Hotels} from '../../types/hotel';
+import Scroll from '../../hooks/Scroll';
 
 type AppScreenProps = {
   authorizationStatus: string;
@@ -19,8 +20,8 @@ export default function App({ authorizationStatus, offers}: AppScreenProps): JSX
   return (
     <React.Fragment>
       <IconArrowSelected />
-
       <BrowserRouter>
+        <Scroll />
         <Routes>
           <Route path={AppRoute.Root} element={<MainScreen offers={offers} authorizationStatus={authorizationStatus}/>} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
