@@ -1,14 +1,21 @@
-import { Hotels } from '../../types/hotel';
+import {Hotel, Hotels } from '../../types/hotel';
 import Header from '../../components/header/header';
 import OfferList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
+import { useState } from 'react';
 
 type MainScreenProps = {
   offers: Hotels;
   authorizationStatus: string;
 }
 
-export default function MainScreen({offers, authorizationStatus }: MainScreenProps): JSX.Element {
+export default function MainScreen({ offers, authorizationStatus }: MainScreenProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<Hotel | null>(null);
+
+  const onOfferHover = (offer: Hotel) => {
+    setActiveOffer(offer);
+  };
+
   return (
     <div className="page page--gray page--main">
       <Header authorizationStatus={authorizationStatus} />
@@ -53,9 +60,9 @@ export default function MainScreen({offers, authorizationStatus }: MainScreenPro
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <OfferList offers={offers} />
+            <OfferList offers={offers} onOfferHover={onOfferHover} />
             <div className="cities__right-section">
-              <Map offers={offers} />
+              <Map offers={offers} activeOffer={activeOffer}/>
             </div>
           </div>
         </div>

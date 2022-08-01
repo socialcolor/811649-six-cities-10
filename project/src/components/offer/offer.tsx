@@ -1,15 +1,24 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { Hotel } from '../../types/hotel';
-import {calcRating} from '../../utils';
+import { calcRating } from '../../utils';
+import { MouseEvent } from 'react';
 
 type OfferProps = {
   offer: Hotel;
+  onOfferHover?: (offer: Hotel) => void;
 }
 
-export default function Offer({offer}: OfferProps): JSX.Element {
+export default function Offer({ offer, onOfferHover }: OfferProps): JSX.Element {
+  const offerHoverHandler = (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    if(onOfferHover) {
+      onOfferHover(offer);
+    }
+  };
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseEnter={offerHoverHandler}>
       <div className="place-card__mark">
         {offer.isPremium && <span>Premium</span>}
       </div>

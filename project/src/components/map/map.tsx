@@ -2,13 +2,14 @@ import { useRef } from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
-import { Hotels } from '../../types/hotel';
+import { Hotel, Hotels } from '../../types/hotel';
 import { cities } from '../../const';
 import { useEffect } from 'react';
-import {URL_MARKER_DEFAULT} from '../../const';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
 type MapProps = {
   offers: Hotels;
+  activeOffer: Hotel | null;
 }
 
 const defaultCustomIcon = new Icon({
@@ -17,7 +18,13 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({ offers }: MapProps): JSX.Element {
+const currentCustomIcon = new Icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40]
+});
+
+export default function Map({ offers, activeOffer }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const city = cities['amsterdam'];
   const map = useMap(mapRef, city);
@@ -29,8 +36,7 @@ export default function Map({ offers }: MapProps): JSX.Element {
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
-
-        marker.setIcon(defaultCustomIcon).addTo(map);
+        marker.setIcon(activeOffer?.id === offer.id ? currentCustomIcon : defaultCustomIcon).addTo(map);
       });
 
     }
