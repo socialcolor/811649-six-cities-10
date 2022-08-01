@@ -37,4 +37,4 @@ type Hotel = {
 
 export type Hotels = Hotel[];
 
-export type {Hotel};
+export type {Hotel, Host};

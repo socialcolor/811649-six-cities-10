@@ -2,9 +2,10 @@ import { useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Navigate } from 'react-router-dom';
 import { Hotels } from '../../types/hotel';
-import {calcRating} from '../../utils';
+import { calcRating } from '../../utils';
 import Header from '../../components/header/header';
 import Review from '../../components/review/review';
+import {review} from '../../mocks/review';
 import SendCommentForm from '../../components/send-comment-form/send-comment-form';
 
 type PropertyScreenProps = {
@@ -95,8 +96,8 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <Review />
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{review.length}</span></h2>
+                {review.map((comment) => <Review key={`${comment.date}-${comment.id}`} review={comment}/>)}
                 <SendCommentForm />
               </section>
             </div>
