@@ -62,7 +62,7 @@ export default function MainScreen({ offers, authorizationStatus }: MainScreenPr
           <div className="cities__places-container container">
             <OfferList offers={offers} onOfferHover={onOfferHover} />
             <div className="cities__right-section">
-              <Map offers={offers} activeOffer={activeOffer}/>
+              <Map offers={offers} activeOffer={activeOffer} size={{width:'100%', height: '100%'}} />
             </div>
           </div>
         </div>
