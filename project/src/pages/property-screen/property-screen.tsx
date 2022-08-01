@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
@@ -21,7 +20,8 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
   const params = useParams();
   const [activeOffer, setActiveOffer] = useState<Hotel | null>(null);
   const offerId = offers.find((element) => element.id === Number(params.id));
-  const nearOffers = offers.slice(0, 3);
+  const currentOfferIndex = offers.findIndex((element) => element.id === Number(params.id));
+  const nearOffers = [...offers.slice(0, currentOfferIndex), ...offers.slice(currentOfferIndex + 1)];
 
   const onOfferHover = (offer: Hotel) => {
     setActiveOffer(offer);
@@ -118,7 +118,7 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((offer) => <NearPlaces key={offer.id} offer={offer} onOfferHover={onOfferHover}/>)}
+              {nearOffers.map((offer) => <NearPlaces key={offer.id} offer={offer} onOfferHover={onOfferHover} />)}
             </div>
           </section>
         </div>
