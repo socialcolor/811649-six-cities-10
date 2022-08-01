@@ -44,7 +44,7 @@ export default function Map({ offers, activeOffer, size}: MapProps): JSX.Element
       });
 
     }
-  });
+  }, [activeOffer?.id, map, offers, mapRef]);
 
   return (
     <section className="map" ref={mapRef} style={size}></section>
