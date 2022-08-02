@@ -32,7 +32,8 @@ export default function Map({ offers, activeOffer, size}: MapProps): JSX.Element
   const mapRef = useRef(null);
   const city = cities['amsterdam'];
   const map = useMap(mapRef, city);
-
+  //Тут мне подсказка в vscode вывела такой тип unknown и подчеркивает строку желтым
+  const markers: Marker<unknown>[] = [];
   useEffect(() => {
     if (map) {
       offers.forEach((offer) => {
@@ -41,11 +42,15 @@ export default function Map({ offers, activeOffer, size}: MapProps): JSX.Element
           lng: offer.location.longitude,
         });
         marker.setIcon(activeOffer?.id === offer.id ? currentCustomIcon : defaultCustomIcon).addTo(map);
+        markers.push(marker);
       });
 
     }
-  }, [activeOffer?.id, map, offers, mapRef]);
 
+    return () => {
+      markers.forEach((marker) => marker.remove());
+    };
+  }, [activeOffer?.id, map, offers, mapRef, markers]);
   return (
     <section className="map" ref={mapRef} style={size}></section>
   );
