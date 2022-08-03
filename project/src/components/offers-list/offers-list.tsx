@@ -4,9 +4,10 @@ import { Hotel, Hotels } from '../../types/hotel';
 type OfferListProps = {
   offers: Hotels;
   onOfferHover: (offer: Hotel) => void;
+  onOutOfOffer: () => void;
 }
 
-export default function OffersList({offers, onOfferHover}: OfferListProps): JSX.Element {
+export default function OffersList({offers, onOfferHover, onOutOfOffer}: OfferListProps): JSX.Element {
 
   return (
     <section className="cities__places places">
@@ -28,7 +29,7 @@ export default function OffersList({offers, onOfferHover}: OfferListProps): JSX.
         </ul>
       </form>
       <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer) => <Offer key={offer.id} offer={offer} onOfferHover={onOfferHover} />)}
+        {offers.map((offer) => <Offer key={offer.id} offer={offer} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer} />)}
       </div>
     </section>
   );

@@ -7,8 +7,9 @@ import { MouseEvent } from 'react';
 type NearPlacesProps = {
   offer: Hotel
   onOfferHover: (offer: Hotel) => void;
+  onOutOfOffer: () => void;
 }
-export default function NearPlaces({ offer, onOfferHover }: NearPlacesProps): JSX.Element {
+export default function NearPlaces({ offer, onOfferHover, onOutOfOffer }: NearPlacesProps): JSX.Element {
   const offerHoverHandler = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
     if (onOfferHover) {
@@ -16,8 +17,10 @@ export default function NearPlaces({ offer, onOfferHover }: NearPlacesProps): JS
     }
   };
 
+  const outOfOfferHandler = () => onOutOfOffer();
+
   return (
-    <article className="near-places__card place-card" onMouseEnter={offerHoverHandler}>
+    <article className="near-places__card place-card" onMouseEnter={offerHoverHandler} onMouseLeave={outOfOfferHandler}>
       {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
       <div className="near-places__image-wrapper place-card__image-wrapper">
         <Link to={AppRoute.Room.replace(':id', (offer.id).toString())}>

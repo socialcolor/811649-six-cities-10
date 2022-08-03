@@ -16,6 +16,8 @@ export default function MainScreen({ offers, authorizationStatus }: MainScreenPr
     setActiveOffer(offer);
   };
 
+  const onOutOfOffer = () => setActiveOffer(null);
+
   return (
     <div className="page page--gray page--main">
       <Header authorizationStatus={authorizationStatus} />
@@ -60,7 +62,7 @@ export default function MainScreen({ offers, authorizationStatus }: MainScreenPr
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <OfferList offers={offers} onOfferHover={onOfferHover} />
+            <OfferList offers={offers} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer} />
             <div className="cities__right-section">
               <Map offers={offers} activeOffer={activeOffer} size={{width:'100%', height: '100%'}} />
             </div>

@@ -1,9 +1,9 @@
 import { useRef } from 'react';
-import {Icon, Marker} from 'leaflet';
+import {Icon, LayerGroup, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { Hotel, Hotels } from '../../types/hotel';
-import { cities } from '../../const';
+import { city, zoom } from '../../const';
 import { useEffect } from 'react';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
@@ -30,27 +30,25 @@ const currentCustomIcon = new Icon({
 
 export default function Map({ offers, activeOffer, size}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const city = cities['amsterdam'];
-  const map = useMap(mapRef, city);
-  //Тут мне подсказка в vscode вывела такой тип unknown и подчеркивает строку желтым
-  const markers: Marker<unknown>[] = [];
+  const map = useMap(mapRef, {lat: city.location.latitude, lng: city.location.longitude}, zoom);
   useEffect(() => {
+    let layer: LayerGroup;
     if (map) {
+      layer = new LayerGroup().addTo(map);
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
-        marker.setIcon(activeOffer?.id === offer.id ? currentCustomIcon : defaultCustomIcon).addTo(map);
-        markers.push(marker);
+        marker.setIcon(activeOffer?.id === offer.id ? currentCustomIcon : defaultCustomIcon).addTo(layer);
       });
 
     }
 
     return () => {
-      markers.forEach((marker) => marker.remove());
+      layer?.clearLayers();
     };
-  }, [activeOffer?.id, map, offers, mapRef, markers]);
+  }, [mapRef, map, offers, activeOffer?.id]);
   return (
     <section className="map" ref={mapRef} style={size}></section>
   );

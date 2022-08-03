@@ -7,9 +7,10 @@ import { MouseEvent } from 'react';
 type OfferProps = {
   offer: Hotel;
   onOfferHover?: (offer: Hotel) => void;
+  onOutOfOffer?: () => void;
 }
 
-export default function Offer({ offer, onOfferHover }: OfferProps): JSX.Element {
+export default function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps): JSX.Element {
   const offerHoverHandler = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
     if(onOfferHover) {
@@ -17,8 +18,14 @@ export default function Offer({ offer, onOfferHover }: OfferProps): JSX.Element 
     }
   };
 
+  const outOfOfferHandler = () => {
+    if(onOutOfOffer) {
+      onOutOfOffer();
+    }
+  };
+
   return (
-    <article className="cities__card place-card" onMouseEnter={offerHoverHandler}>
+    <article className="cities__card place-card" onMouseEnter={offerHoverHandler} onMouseLeave={outOfOfferHandler}>
       <div className="place-card__mark">
         {offer.isPremium && <span>Premium</span>}
       </div>
