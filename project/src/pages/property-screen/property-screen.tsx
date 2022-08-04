@@ -18,9 +18,10 @@ type PropertyScreenProps = {
 
 export default function PropertyScreen({ authorizationStatus, offers }: PropertyScreenProps): JSX.Element {
   const params = useParams();
+  const currentOfferId = Number(params.id);
   const [activeOffer, setActiveOffer] = useState<Hotel | null>(null);
-  const offer = offers.find((element) => element.id === Number(params.id));
-  const currentOfferIndex = offers.findIndex((element) => element.id === Number(params.id));
+  const offer = offers.find((element) => element.id === currentOfferId);
+  const currentOfferIndex = offers.findIndex((element) => element.id === currentOfferId);
   const nearOffers = [...offers.slice(0, currentOfferIndex), ...offers.slice(currentOfferIndex + 1)];
 
   const onOfferHover = (hoveredOffer: Hotel) => {
