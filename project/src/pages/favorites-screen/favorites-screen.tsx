@@ -8,15 +8,14 @@ type FavoritesScreenProps = {
 }
 
 export default function FavoritesScreen({ authorizationStatus, offers }: FavoritesScreenProps): JSX.Element {
-  type city = {
-    [name: string]: Hotels;
-  }
 
-  const dict = offers.reduce((acc:city, offer: Hotel): city => {
-    if(offer.isFavorite && acc[offer.city.name] === undefined) {
-      acc[offer.city.name] = [offer];
-    } else if(offer.isFavorite) {
-      acc[offer.city.name].push(offer);
+  const dict = offers.reduce<{ [key: string]: Hotel[] }>((acc, offer: Hotel) => {
+    if (offer.isFavorite) {
+      if (acc[offer.city.name]) {
+        acc[offer.city.name].push(offer);
+      } else {
+        acc[offer.city.name] = [offer];
+      }
     }
     return acc;
   }, {});
@@ -29,7 +28,7 @@ export default function FavoritesScreen({ authorizationStatus, offers }: Favorit
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            {cities.map((city) => <FavoritesList key={city} offers={dict[city]} name={city}/>)}
+            {cities.map((city) => <FavoritesList key={city} offers={dict[city]} name={city} />)}
           </section>
         </div>
       </main>

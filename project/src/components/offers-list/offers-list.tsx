@@ -1,15 +1,13 @@
-import {useState} from 'react';
-import {ACTIVE_OFFER_ID} from '../../const';
 import Offer from '../offer/offer';
-import { Hotels } from '../../types/hotel';
+import { Hotel, Hotels } from '../../types/hotel';
 
 type OfferListProps = {
   offers: Hotels;
+  onOfferHover: (offer: Hotel) => void;
+  onOutOfOffer: () => void;
 }
 
-export default function OffersList({offers}: OfferListProps): JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [activeOffer, setActiveOffer] = useState(ACTIVE_OFFER_ID);
+export default function OffersList({offers, onOfferHover, onOutOfOffer}: OfferListProps): JSX.Element {
 
   return (
     <section className="cities__places places">
@@ -31,7 +29,7 @@ export default function OffersList({offers}: OfferListProps): JSX.Element {
         </ul>
       </form>
       <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer) => <Offer key={offer.id} offer={offer} />)}
+        {offers.map((offer) => <Offer key={offer.id} offer={offer} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer} />)}
       </div>
     </section>
   );

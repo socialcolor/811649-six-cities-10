@@ -4,32 +4,25 @@ import { Hotel } from '../../types/hotel';
 import { calcRating } from '../../utils';
 import { MouseEvent } from 'react';
 
-type OfferProps = {
-  offer: Hotel;
-  onOfferHover?: (offer: Hotel) => void;
-  onOutOfOffer?: () => void;
+type NearPlacesProps = {
+  offer: Hotel
+  onOfferHover: (offer: Hotel) => void;
+  onOutOfOffer: () => void;
 }
-
-export default function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps): JSX.Element {
+export default function NearPlaces({ offer, onOfferHover, onOutOfOffer }: NearPlacesProps): JSX.Element {
   const offerHoverHandler = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    if(onOfferHover) {
+    if (onOfferHover) {
       onOfferHover(offer);
     }
   };
 
-  const outOfOfferHandler = () => {
-    if(onOutOfOffer) {
-      onOutOfOffer();
-    }
-  };
+  const outOfOfferHandler = () => onOutOfOffer();
 
   return (
-    <article className="cities__card place-card" onMouseEnter={offerHoverHandler} onMouseLeave={outOfOfferHandler}>
-      <div className="place-card__mark">
-        {offer.isPremium && <span>Premium</span>}
-      </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className="near-places__card place-card" onMouseEnter={offerHoverHandler} onMouseLeave={outOfOfferHandler}>
+      {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
+      <div className="near-places__image-wrapper place-card__image-wrapper">
         <Link to={AppRoute.Room.replace(':id', (offer.id).toString())}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place" />
         </Link>
@@ -40,11 +33,11 @@ export default function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps)
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={offer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -54,7 +47,7 @@ export default function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps)
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/#">{offer.title}</a>
+          <Link to={AppRoute.Room.replace(':id', (offer.id).toString())}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
