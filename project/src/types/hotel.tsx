@@ -35,6 +35,12 @@ type Hotel = {
   id: number;
 };
 
+type location = {
+  location: {
+    latitude: number,
+    longitude: number,
+  }
+};
 export type Hotels = Hotel[];
 
-export type {Hotel, Host};
+export type {Hotel, Host, location, City};

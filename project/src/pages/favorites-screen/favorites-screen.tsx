@@ -8,7 +8,6 @@ type FavoritesScreenProps = {
 }
 
 export default function FavoritesScreen({ authorizationStatus, offers }: FavoritesScreenProps): JSX.Element {
-
   const dict = offers.reduce<{ [key: string]: Hotel[] }>((acc, offer: Hotel) => {
     if (offer.isFavorite) {
       if (acc[offer.city.name]) {
