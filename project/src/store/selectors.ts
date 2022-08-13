@@ -4,6 +4,6 @@ const getOffers = () => (state: State) => state.offers.filter((offer) => offer.c
 
 const getFavoriteOffers = () => (state: State) => state.offers.filter((offer) => offer.isFavorite);
 
-const getCurrentCity = () => (state: State) => state.city.name;
+const getCurrentCityName = () => (state: State) => state.city.name;
 
-export {getOffers, getCurrentCity, getFavoriteOffers};
+export {getOffers, getCurrentCityName, getFavoriteOffers};

@@ -16,7 +16,7 @@ type Host = {
   avatarUrl: string;
 }
 
-type Hotel = {
+type Offer = {
   city: City;
   previewImage: string;
   images: string[];
@@ -35,12 +35,6 @@ type Hotel = {
   id: number;
 };
 
-type location = {
-  location: {
-    latitude: number,
-    longitude: number,
-  }
-};
-export type Hotels = Hotel[];
+export type Offers = Offer[];
 
-export type {Hotel, Host, location, City};
+export type {Offer, Host, Location, City};

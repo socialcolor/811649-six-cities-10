@@ -1,14 +1,14 @@
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Header from '../../components/header/header';
-import { Hotels, Hotel } from '../../types/hotel';
+import { Offers, Offer } from '../../types/offer';
 
 type FavoritesScreenProps = {
   authorizationStatus: string;
-  offers: Hotels;
+  offers: Offers;
 }
 
 export default function FavoritesScreen({ authorizationStatus, offers }: FavoritesScreenProps): JSX.Element {
-  const dict = offers.reduce<{ [key: string]: Hotel[] }>((acc, offer: Hotel) => {
+  const dict = offers.reduce<{ [key: string]: Offer[] }>((acc, offer: Offer) => {
     if (offer.isFavorite) {
       if (acc[offer.city.name]) {
         acc[offer.city.name].push(offer);

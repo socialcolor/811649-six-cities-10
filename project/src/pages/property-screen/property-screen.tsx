@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Navigate } from 'react-router-dom';
-import { Hotels, Hotel } from '../../types/hotel';
+import { Offers, Offer } from '../../types/offer';
 import { calcRating } from '../../utils';
 import { review } from '../../mocks/review';
 import Header from '../../components/header/header';
@@ -13,18 +13,18 @@ import NearPlaces from '../../components/near-places/near-places';
 
 type PropertyScreenProps = {
   authorizationStatus: string;
-  offers: Hotels;
+  offers: Offers;
 }
 
 export default function PropertyScreen({ authorizationStatus, offers }: PropertyScreenProps): JSX.Element {
   const params = useParams();
   const currentOfferId = Number(params.id);
-  const [activeOffer, setActiveOffer] = useState<Hotel | null>(null);
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const offer = offers.find((element) => element.id === currentOfferId);
   const currentOfferIndex = offers.findIndex((element) => element.id === currentOfferId);
   const nearOffers = [...offers.slice(0, currentOfferIndex), ...offers.slice(currentOfferIndex + 1)];
 
-  const onOfferHover = (hoveredOffer: Hotel) => {
+  const onOfferHover = (hoveredOffer: Offer) => {
     setActiveOffer(hoveredOffer);
   };
 

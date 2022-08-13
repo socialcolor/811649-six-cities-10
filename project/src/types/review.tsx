@@ -1,4 +1,4 @@
-import {Host} from './hotel';
+import {Host} from './offer';
 
 type Review = {
   id: number;

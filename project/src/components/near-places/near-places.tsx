@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { Hotel } from '../../types/hotel';
+import { Offer } from '../../types/offer';
 import { calcRating } from '../../utils';
 import { MouseEvent } from 'react';
 
 type NearPlacesProps = {
-  offer: Hotel
-  onOfferHover: (offer: Hotel) => void;
+  offer: Offer
+  onOfferHover: (offer: Offer) => void;
   onOutOfOffer: () => void;
 }
 export default function NearPlaces({ offer, onOfferHover, onOutOfOffer }: NearPlacesProps): JSX.Element {
