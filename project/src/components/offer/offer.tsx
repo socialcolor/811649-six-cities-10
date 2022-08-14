@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { Hotel } from '../../types/hotel';
+import { Offer as OfferType} from '../../types/offer';
 import { calcRating } from '../../utils';
 import { MouseEvent } from 'react';
 
 type OfferProps = {
-  offer: Hotel;
-  onOfferHover?: (offer: Hotel) => void;
+  offer: OfferType;
+  onOfferHover?: (offer: OfferType) => void;
   onOutOfOffer?: () => void;
 }
 

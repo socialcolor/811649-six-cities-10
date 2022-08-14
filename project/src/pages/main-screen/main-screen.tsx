@@ -1,18 +1,20 @@
-import {Hotel, Hotels } from '../../types/hotel';
+import {Offer } from '../../types/offer';
 import Header from '../../components/header/header';
 import OfferList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { useState } from 'react';
+import { getOffers, getCurrentCityName } from '../../store/selectors';
+import { useAppSelector } from '../../hooks';
 
 type MainScreenProps = {
-  offers: Hotels;
   authorizationStatus: string;
 }
 
-export default function MainScreen({ offers, authorizationStatus }: MainScreenProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<Hotel | null>(null);
-
-  const onOfferHover = (offer: Hotel) => {
+export default function MainScreen({ authorizationStatus }: MainScreenProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+  const offers = useAppSelector(getOffers());
+  const currentCityName = useAppSelector(getCurrentCityName());
+  const onOfferHover = (offer: Offer) => {
     setActiveOffer(offer);
   };
 
@@ -62,7 +64,7 @@ export default function MainScreen({ offers, authorizationStatus }: MainScreenPr
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <OfferList offers={offers} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer} />
+            <OfferList offers={offers} currentCityName={currentCityName} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer} />
             <div className="cities__right-section">
               <Map offers={offers} activeOffer={activeOffer} size={{width:'100%', height: '100%'}} />
             </div>

@@ -2,14 +2,14 @@ import { useRef } from 'react';
 import {Icon, LayerGroup, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
-import { Hotel, Hotels } from '../../types/hotel';
+import { Offer, Offers } from '../../types/offer';
 import { city, zoom } from '../../const';
 import { useEffect } from 'react';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
 type MapProps = {
-  offers: Hotels;
-  activeOffer: Hotel | null;
+  offers: Offers;
+  activeOffer: Offer | null;
   size?: {
     height?: string;
     width?: string;

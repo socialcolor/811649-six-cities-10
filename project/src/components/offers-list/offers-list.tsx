@@ -1,18 +1,19 @@
 import Offer from '../offer/offer';
-import { Hotel, Hotels } from '../../types/hotel';
+import { Offer as OfferType, Offers } from '../../types/offer';
 
 type OfferListProps = {
-  offers: Hotels;
-  onOfferHover: (offer: Hotel) => void;
+  offers: Offers;
+  currentCityName: string;
+  onOfferHover: (offer: OfferType) => void;
   onOutOfOffer: () => void;
 }
 
-export default function OffersList({offers, onOfferHover, onOutOfOffer}: OfferListProps): JSX.Element {
+export default function OffersList({offers, currentCityName, onOfferHover, onOutOfOffer}: OfferListProps): JSX.Element {
 
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">312 places to stay in Amsterdam</b>
+      <b className="places__found">{offers.length} places to stay in {currentCityName}</b>
       <form className="places__sorting" action="/#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex={0}>

@@ -16,7 +16,7 @@ type Host = {
   avatarUrl: string;
 }
 
-type Hotel = {
+type Offer = {
   city: City;
   previewImage: string;
   images: string[];
@@ -35,6 +35,6 @@ type Hotel = {
   id: number;
 };
 
-export type Hotels = Hotel[];
+export type Offers = Offer[];
 
-export type {Hotel, Host};
+export type {Offer, Host, Location, City};

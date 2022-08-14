@@ -1,8 +1,8 @@
-import {Hotels} from '../../types/hotel';
+import {Offers} from '../../types/offer';
 import Offer from '../../components/offer/offer';
 
 type favoritesListprops = {
-  offers: Hotels;
+  offers: Offers;
   name: string;
 }
 export default function FavoritesList({offers, name}: favoritesListprops): JSX.Element {

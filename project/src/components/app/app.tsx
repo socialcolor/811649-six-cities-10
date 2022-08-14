@@ -8,26 +8,29 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {Hotels} from '../../types/hotel';
 import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
+import { useAppSelector } from '../../hooks';
+import { getOffers, getFavoriteOffers } from '../../store/selectors';
 
 type AppScreenProps = {
   authorizationStatus: string;
-  offers: Hotels;
 }
 
-export default function App({ authorizationStatus, offers}: AppScreenProps): JSX.Element {
+export default function App({ authorizationStatus}: AppScreenProps): JSX.Element {
+  const offers = useAppSelector(getOffers());
+  const favoritesOffers = useAppSelector(getFavoriteOffers());
+
   return (
     <React.Fragment>
       <IconArrowSelected />
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route path={AppRoute.Root} element={<MainScreen offers={offers} authorizationStatus={authorizationStatus}/>} />
+          <Route path={AppRoute.Root} element={<MainScreen authorizationStatus={authorizationStatus}/>} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
-              <FavoritesScreen authorizationStatus={authorizationStatus} offers={offers}/>
+              <FavoritesScreen authorizationStatus={authorizationStatus} offers={favoritesOffers}/>
             </PrivateRoute>
           }
           />
