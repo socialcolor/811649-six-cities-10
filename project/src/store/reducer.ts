@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { createReducer } from '@reduxjs/toolkit';
 import { city } from '../const';
 import { Offer } from '../types/offer';

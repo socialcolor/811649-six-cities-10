@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useAppSelector } from '../../hooks';
 import { getCurrentSortName, getOffers } from '../../store/selectors';
 import { ActiveSort } from '../../const';
@@ -18,26 +17,26 @@ export default function Sort(): JSX.Element {
   const sortItemClickHandler = (event: MouseEvent<HTMLElement>) => {
     const newSortName = event.currentTarget.dataset.sort ? event.currentTarget.dataset.sort.toString() : sortName;
     const newSortingOffers = sortingOffers(newSortName);
-    store.dispatch(changeSort({sort: newSortName, offers: newSortingOffers}))
+    store.dispatch(changeSort({sort: newSortName, offers: newSortingOffers}));
   };
-  const sortingOffers = (sortName: string) => {
+  const sortingOffers = (sort: string) => {
     let sortedOffers:Offer[] = [];
-    switch (sortName) {
+    switch (sort) {
       case ActiveSort.Popular:
         sortedOffers = offers;
-        break
+        break;
       case ActiveSort.LowToHigh:
-        sortedOffers = offers.sort((a, b) => a.price - b.price)
-        break
+        sortedOffers = offers.sort((a, b) => a.price - b.price);
+        break;
       case ActiveSort.HighToLow:
-        sortedOffers = offers.sort((a, b) => b.price - a.price)
-        break
+        sortedOffers = offers.sort((a, b) => b.price - a.price);
+        break;
       case ActiveSort.TOP:
-        sortedOffers = offers.sort((a, b) => b.rating - a.rating)
-        break
+        sortedOffers = offers.sort((a, b) => b.rating - a.rating);
+        break;
     }
     return sortedOffers;
-  }
+  };
 
   return (
     <form className="places__sorting" action="/#" method="get" onMouseLeave={outOfSortHandler}>
