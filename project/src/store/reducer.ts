@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import { createReducer } from '@reduxjs/toolkit';
 import { city } from '../const';
 import { Offer } from '../types/offer';
-import { chenageCity, setOffers, setSort } from './action';
+import { chenageCity, setOffers, setSort, changeSort } from './action';
 
 const initialState = {
   city: city,
@@ -18,5 +19,9 @@ export const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(setSort, (state, action) => {
     state.sort = action.payload;
+  });
+  builder.addCase(changeSort, (state, action) => {
+    state.sort = action.payload.sort;
+    state.offers = action.payload.offers;
   });
 });

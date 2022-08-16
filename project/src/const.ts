@@ -15,12 +15,12 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-const enum ActiveSort {
-  Popular = 'Popular',
-  LowToHigh = 'Price: low to high',
-  HighToLow = 'Price: high to low',
-  TOP = 'Top rated first',
-}
+const ActiveSort = {
+  Popular: 'Popular',
+  LowToHigh: 'Price: low to high',
+  HighToLow: 'Price: high to low',
+  TOP: 'Top rated first',
+} as const;
 
 const city = {
   name: 'Amsterdam',
