@@ -5,7 +5,9 @@ import App from './components/app/app';
 import { AuthorizationStatus } from '../src/const';
 import { offers } from './mocks/offers';
 import {store} from './store';
-import { setOffers } from './store/action';
+import { setOffers, setSort } from './store/action';
+import { ActiveSort } from './const';
+
 const Settings = {
   authorizationStatus: AuthorizationStatus.Auth,
 };
@@ -15,6 +17,8 @@ const root = ReactDOM.createRoot(
 );
 
 store.dispatch(setOffers(offers));
+store.dispatch(setSort(ActiveSort.Popular));
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

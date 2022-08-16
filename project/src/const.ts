@@ -15,6 +15,13 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+const enum ActiveSort {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TOP = 'Top rated first',
+}
+
 const city = {
   name: 'Amsterdam',
   location: {
@@ -31,4 +38,4 @@ const URL_MARKER_DEFAULT = '/img/pin.svg';
 const URL_MARKER_CURRENT = '/img/pin-active.svg';
 
 
-export { AppRoute, AuthorizationStatus, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom };
+export { AppRoute, AuthorizationStatus, ActiveSort, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom };
