@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { SortName, city } from '../const';
 import { Offer } from '../types/offer';
-import { chenageCity, setOffers, changeActiveSort } from './action';
+import { changeCity, setOffers, changeActiveSort } from './action';
 
 const initialState = {
   city: city,
@@ -15,7 +15,7 @@ export const reducer = createReducer(initialState, (builder) => {
     state.offers = action.payload;
     state.allOffers = action.payload;
   });
-  builder.addCase(chenageCity, (state, action) => {
+  builder.addCase(changeCity, (state, action) => {
     state.city = action.payload;
   });
   builder.addCase(changeActiveSort, (state, action) => {

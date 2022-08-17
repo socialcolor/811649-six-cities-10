@@ -27,7 +27,7 @@ export default function Sort(): JSX.Element {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${sortIsVisible ? 'places__options--opened' : ''}`}>
-        {Object.keys(SortName).map((item, index, array) => <li key={item} className={`places__option ${item === sortName ? 'places__option--active' : ''}`} tabIndex={0} data-sort={item} onClick={sortItemClickHandler}> {SortTitles[item]}</li>
+        {Object.keys(SortName).map((item) => <li key={item} className={`places__option ${item === sortName ? 'places__option--active' : ''}`} tabIndex={0} data-sort={item} onClick={sortItemClickHandler}> {SortTitles[item]}</li>
         )}
       </ul>
     </form >
