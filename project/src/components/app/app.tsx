@@ -11,6 +11,7 @@ import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
 import { useAppSelector } from '../../hooks';
 import { getOffers, getFavoriteOffers } from '../../store/selectors';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppScreenProps = {
   authorizationStatus: string;
@@ -19,6 +20,13 @@ type AppScreenProps = {
 export default function App({ authorizationStatus}: AppScreenProps): JSX.Element {
   const offers = useAppSelector(getOffers());
   const favoritesOffers = useAppSelector(getFavoriteOffers());
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+
+  if (isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <React.Fragment>
