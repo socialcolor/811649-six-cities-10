@@ -6,6 +6,7 @@ import { AuthorizationStatus } from '../src/const';
 import { offers } from './mocks/offers';
 import {store} from './store';
 import { setOffers } from './store/action';
+
 const Settings = {
   authorizationStatus: AuthorizationStatus.Auth,
 };
@@ -15,6 +16,7 @@ const root = ReactDOM.createRoot(
 );
 
 store.dispatch(setOffers(offers));
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
