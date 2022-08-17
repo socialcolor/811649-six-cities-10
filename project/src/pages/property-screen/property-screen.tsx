@@ -1,15 +1,17 @@
+/* eslint-disable */
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Navigate } from 'react-router-dom';
 import { Offers, Offer } from '../../types/offer';
 import { calcRating } from '../../utils';
-import { review } from '../../mocks/review';
 import Header from '../../components/header/header';
 import Review from '../../components/review/review';
 import SendCommentForm from '../../components/send-comment-form/send-comment-form';
 import Map from '../../components/map/map';
+import { useAppDispatch } from '../../hooks';
 import NearPlaces from '../../components/near-places/near-places';
+import { fetchLoadCommentAction, fetchLoadOffersAction } from '../../store/api-actions';
 
 type PropertyScreenProps = {
   authorizationStatus: string;
@@ -22,7 +24,10 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const offer = offers.find((element) => element.id === currentOfferId);
   const currentOfferIndex = offers.findIndex((element) => element.id === currentOfferId);
-  const nearOffers = [...offers.slice(0, currentOfferIndex), ...offers.slice(currentOfferIndex + 1)];
+  // const nearOffers = [...offers.slice(0, currentOfferIndex), ...offers.slice(currentOfferIndex + 1)];
+
+  // const dispatch = useAppDispatch();
+  // const review = dispatch(fetchLoadCommentAction(18));
 
   const onOfferHover = (hoveredOffer: Offer) => {
     setActiveOffer(hoveredOffer);
@@ -111,19 +116,18 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{review.length}</span></h2>
-                {review.map((comment) => <Review key={`${comment.date}-${comment.id}`} review={comment} />)}
-                <SendCommentForm />
+                {/* {review.map((comment) => <Review key={`${comment.date}-${comment.id}`} review={comment} />)} */}
+                {/* <SendCommentForm /> */}
               </section>
             </div>
           </div>
-          <Map offers={nearOffers} activeOffer={activeOffer} size={{ width: '100%', height: '579px' }} />
+          {/* <Map offers={nearOffers} activeOffer={activeOffer} size={{ width: '100%', height: '579px' }} /> */}
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((nearOffer) => <NearPlaces key={nearOffer.id} offer={nearOffer} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer}/>)}
+              {/* {nearOffers.map((nearOffer) => <NearPlaces key={nearOffer.id} offer={nearOffer} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer}/>)} */}
             </div>
           </section>
         </div>

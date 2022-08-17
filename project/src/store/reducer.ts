@@ -1,14 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { SortName, city } from '../const';
-import { Offer } from '../types/offer';
-import { changeCity, setOffers, changeActiveSort, setDataLoadedStatus } from './action';
+import { Offer, City } from '../types/offer';
+// import { Reviews } from '../types/review';
+import { changeCity, setOffers, changeActiveSort, setDataLoadedStatus, setComment } from './action';
 
-const initialState = {
+type InitialState = {
+  city: City,
+  offers: Offer[],
+  allOffers: Offer[],
+  currentSort: string,
+  isDataLoaded: boolean,
+  comment: unknown,
+}
+const initialState: InitialState = {
   city: city,
   offers: [] as Offer[],
   allOffers: [] as Offer[],
   currentSort: SortName.Popular,
   isDataLoaded: false,
+  comment: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -38,5 +48,8 @@ export const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(setDataLoadedStatus, (state, action) => {
     state.isDataLoaded = action.payload;
+  });
+  builder.addCase(setComment, (state, action) => {
+    state.comment = action.payload;
   });
 });

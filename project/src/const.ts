@@ -46,6 +46,9 @@ const URL_MARKER_CURRENT = '/img/pin-active.svg';
 
 enum APIRoute {
   Offers = '/hotels',
+  Comment = '/comments/:id',
+  Nearby = '/hotels/:id/nearby',
+  Favorite = '/favorite'
 }
 
 export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute };
