@@ -15,12 +15,19 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-const ActiveSort = {
+const SortName = {
   Popular: 'Popular',
-  LowToHigh: 'Price: low to high',
-  HighToLow: 'Price: high to low',
-  TOP: 'Top rated first',
-} as const;
+  LowToHigh: 'LowToHigh',
+  HighToLow: 'HighToLow',
+  Top: 'Top',
+};
+
+const SortTitles = {
+  [SortName.Popular]: 'Popular',
+  [SortName.LowToHigh]: 'Price: low to high',
+  [SortName.HighToLow]: 'Price: high to low',
+  [SortName.Top]: 'Top rated first',
+};
 
 const city = {
   name: 'Amsterdam',
@@ -38,4 +45,4 @@ const URL_MARKER_DEFAULT = '/img/pin.svg';
 const URL_MARKER_CURRENT = '/img/pin-active.svg';
 
 
-export { AppRoute, AuthorizationStatus, ActiveSort, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom };
+export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom };

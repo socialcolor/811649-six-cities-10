@@ -3,7 +3,6 @@ import { Offer, City } from '../types/offer';
 
 const setOffers = createAction<Offer[]>('setOffers');
 const chenageCity = createAction<City>('changeCity');
-const setSort = createAction<string>('setSort');
-const changeSort = createAction<{sort: string, offers: Offer[]}>('changeSort');
+const changeActiveSort = createAction<string>('changeActiveSort');
 
-export {setOffers, chenageCity, setSort, changeSort};
+export {setOffers, chenageCity, changeActiveSort};
