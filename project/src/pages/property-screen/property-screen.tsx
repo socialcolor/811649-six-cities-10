@@ -33,6 +33,8 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const offer = useAppSelector(getOffer());
   const review = useAppSelector(getComment());
   const nearOffers = useAppSelector(getNearbyOffers());
+  // eslint-disable-next-line no-console
+  console.log(review.length);
 
   const onOutOfOffer = () => {
     setActiveOffer(null);
@@ -119,6 +121,7 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
                 </div>
               </div>
               <section className="property__reviews reviews">
+                {review && <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{review.length}</span></h2>}
                 {review.map((comment) => <Review key={`${comment.date}-${comment.id}`} review={comment} />)}
                 <SendCommentForm />
               </section>
