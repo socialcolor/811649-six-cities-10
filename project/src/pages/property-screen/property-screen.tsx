@@ -1,35 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Navigate } from 'react-router-dom';
-import { Offers, Offer } from '../../types/offer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getOffer, getComment, getNearbyOffers } from '../../store/selectors';
+import { Offer } from '../../types/offer';
 import { calcRating } from '../../utils';
-import { review } from '../../mocks/review';
 import Header from '../../components/header/header';
 import Review from '../../components/review/review';
 import SendCommentForm from '../../components/send-comment-form/send-comment-form';
 import Map from '../../components/map/map';
 import NearPlaces from '../../components/near-places/near-places';
+import { fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferAction } from '../../store/api-actions';
 
 type PropertyScreenProps = {
   authorizationStatus: string;
-  offers: Offers;
 }
 
-export default function PropertyScreen({ authorizationStatus, offers }: PropertyScreenProps): JSX.Element {
+export default function PropertyScreen({ authorizationStatus }: PropertyScreenProps): JSX.Element {
   const params = useParams();
   const currentOfferId = Number(params.id);
-  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  const offer = offers.find((element) => element.id === currentOfferId);
-  const currentOfferIndex = offers.findIndex((element) => element.id === currentOfferId);
-  const nearOffers = [...offers.slice(0, currentOfferIndex), ...offers.slice(currentOfferIndex + 1)];
+  const dispatch = useAppDispatch();
 
-  const onOfferHover = (hoveredOffer: Offer) => {
-    setActiveOffer(hoveredOffer);
-  };
+  useEffect(() => {
+    dispatch(fetchLoadOfferAction(currentOfferId));
+    dispatch(fetchLoadCommentAction(currentOfferId));
+    dispatch(fetchLoadNearbyOfferAction(currentOfferId));
+  }, [dispatch, currentOfferId]);
+
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+
+  const offer = useAppSelector(getOffer());
+  const review = useAppSelector(getComment());
+  const nearOffers = useAppSelector(getNearbyOffers());
 
   const onOutOfOffer = () => {
     setActiveOffer(null);
+  };
+
+  const onOfferHover = (hoveredOffer: Offer) => {
+    setActiveOffer(hoveredOffer);
   };
 
   if (offer === undefined) {
@@ -44,7 +54,7 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.slice(0, 6).map((img) => (
+              {offer && offer.images && offer.images.map((img) => (
                 <div key={img} className="property__image-wrapper">
                   <img className="property__image" src={img} alt="studio" />
                 </div>
@@ -53,9 +63,7 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                {offer.isPremium && <span>Premium</span>}
-              </div>
+              {offer.isPremium && <div className="property__mark"><span>Premium</span></div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{offer.title}</h1>
                 <button className="property__bookmark-button button" type="button">
@@ -90,19 +98,19 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offer.goods.map((good) => <li key={good} className="property__inside-item">{good}</li>)}
+                  {offer && offer.goods && offer.goods.map((good) => <li key={good} className="property__inside-item">{good}</li>)}
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={offer.host.isPro ? 'property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper' : 'property__avatar-wrapper'}>
-                    <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                  <div className={offer && offer.host && offer.host.isPro ? 'property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper' : 'property__avatar-wrapper'}>
+                    <img className="property__avatar user__avatar" src={offer && offer.host && offer.host.avatarUrl } width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    {offer.host.name}
+                    {offer && offer.host && offer.host.name}
                   </span>
-                  {offer.host.isPro && <span className="property__user-status">Pro</span>}
+                  {offer && offer.host && offer.host.isPro && <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -111,7 +119,7 @@ export default function PropertyScreen({ authorizationStatus, offers }: Property
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{review.length}</span></h2>
+                {review && <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{review.length}</span></h2>}
                 {review.map((comment) => <Review key={`${comment.date}-${comment.id}`} review={comment} />)}
                 <SendCommentForm />
               </section>

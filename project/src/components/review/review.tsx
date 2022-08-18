@@ -1,12 +1,12 @@
-import { Review as ReviewType} from '../../types/review';
+import { Review as ReviewType } from '../../types/review';
 import dayjs from 'dayjs';
-import {calcRating} from '../../utils';
+import { calcRating } from '../../utils';
+import React from 'react';
 
 type ReviewProps = {
   review: ReviewType;
 }
-
-export default function Review({review}: ReviewProps): JSX.Element {
+export default function Review({ review }: ReviewProps): JSX.Element {
   return (
     <ul className="reviews__list">
       <li className="reviews__item">
