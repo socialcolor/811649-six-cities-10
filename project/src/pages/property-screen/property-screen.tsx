@@ -33,8 +33,6 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const offer = useAppSelector(getOffer());
   const review = useAppSelector(getComment());
   const nearOffers = useAppSelector(getNearbyOffers());
-  // eslint-disable-next-line no-console
-  console.log(review.length);
 
   const onOutOfOffer = () => {
     setActiveOffer(null);
