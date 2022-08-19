@@ -7,3 +7,4 @@ export const getNearbyOffers = () => (state: State) => state.nearbyOffers;
 export const getFavoriteOffers = () => (state: State) => state.offers.filter((offer) => offer.isFavorite);
 export const getCurrentCityName = () => (state: State) => state.city.name;
 export const getCurrentSortName = () => (state: State) => state.currentSort;
+export const getDataLoaded = () => (state: State) => state.isDataLoaded;

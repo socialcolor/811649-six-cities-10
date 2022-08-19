@@ -10,7 +10,7 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getFavoriteOffers } from '../../store/selectors';
+import { getDataLoaded, getFavoriteOffers } from '../../store/selectors';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { fetchLoadOffersAction } from '../../store/api-actions';
 
@@ -25,7 +25,7 @@ export default function App({ authorizationStatus }: AppScreenProps): JSX.Elemen
   }, [dispatch]);
 
   const favoritesOffers = useAppSelector(getFavoriteOffers());
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+  const isDataLoaded = useAppSelector(getDataLoaded());
 
   if (isDataLoaded) {
     return (
