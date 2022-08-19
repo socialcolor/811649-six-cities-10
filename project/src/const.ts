@@ -49,7 +49,9 @@ enum APIRoute {
   Offer = '/hotels/:id',
   Comment = '/comments/:id',
   Nearby = '/hotels/:id/nearby',
-  Favorite = '/favorite'
+  Favorite = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute };
