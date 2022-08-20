@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import App from './components/app/app';
-import { AuthorizationStatus } from '../src/const';
 import {store} from './store';
-
-const Settings = {
-  authorizationStatus: AuthorizationStatus.Auth,
-};
+import { checkAuthAction } from './store/api-actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+store.dispatch(checkAuthAction());
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App authorizationStatus={Settings.authorizationStatus} />
+      <ToastContainer />
+      <App />
     </Provider>
   </React.StrictMode>,
 );
