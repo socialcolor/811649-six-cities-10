@@ -7,6 +7,12 @@ type Review = {
   comment: string;
   date: string;
 }
+
+type Comment = {
+  id: number,
+  comment: string,
+  rating: number,
+}
 export type Reviews = Review[];
 
-export type {Review};
+export type {Review, Comment};

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { useState } from 'react';
-export default function SendCommentForm(): JSX.Element {
+import { useAppDispatch } from '../../hooks';
+import { fetchSendCommentAction } from '../../store/api-actions';
+
+type SendCommentFormProps = {
+  offerId: number;
+}
+export default function SendCommentForm({offerId}: SendCommentFormProps): JSX.Element {
   const [comment, setComment] = useState('');
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState('0');
+  const dispatch = useAppDispatch();
   const labelTitle: {
     [index: string]: string;
   } = {
@@ -13,8 +20,32 @@ export default function SendCommentForm(): JSX.Element {
     5: 'perfect',
   };
 
+  useEffect(() => {
+    const button:HTMLButtonElement | null = document.querySelector('.reviews__submit');
+    if(comment.length >= 50 && rating && button) {
+      button.disabled = false;
+    }
+
+    return () => {
+      if(button) {
+        button.disabled = true;
+      }
+    };
+  }, [comment, rating]);
+
+  const onFormSend = (evt: FormEvent<HTMLFormElement>): void => {
+    evt.preventDefault();
+
+    dispatch(fetchSendCommentAction({
+      id: offerId,
+      comment: comment,
+      rating: Number(rating),
+    }));
+
+  };
+
   return (
-    <form className="reviews__form form" action="/#" method="post">
+    <form className="reviews__form form" action="/#" method="post" onSubmit={onFormSend}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {Array.from({ length: 5 }, (element, index) => index + 1).reverse().map((element) => (
@@ -29,7 +60,7 @@ export default function SendCommentForm(): JSX.Element {
         )
         )}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" value={comment} name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={({ target }) => setComment(target.value)}>{comment}
+      <textarea maxLength={300} className="reviews__textarea form__textarea" id="review" value={comment} name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={({ target }) => setComment(target.value)}>{comment}
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
