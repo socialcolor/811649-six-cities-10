@@ -1,11 +1,12 @@
 import { useRef } from 'react';
-import {Icon, LayerGroup, Marker} from 'leaflet';
+import { Icon, LayerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { Offer, Offers } from '../../types/offer';
-import { city, zoom } from '../../const';
 import { useEffect } from 'react';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getCurrentCity } from '../../store/selectors';
 
 type MapProps = {
   offers: Offers;
@@ -28,9 +29,12 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({ offers, activeOffer, size}: MapProps): JSX.Element {
+export default function Map({ offers, activeOffer, size }: MapProps): JSX.Element {
+  const city = useAppSelector(getCurrentCity());
+
   const mapRef = useRef(null);
-  const map = useMap(mapRef, {lat: city.location.latitude, lng: city.location.longitude}, zoom);
+  const map = useMap(mapRef, { lat: city.location.latitude, lng: city.location.longitude }, city.location.zoom);
+
   useEffect(() => {
     let layer: LayerGroup;
     if (map) {
