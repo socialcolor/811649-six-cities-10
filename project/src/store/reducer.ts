@@ -23,7 +23,7 @@ const initialState: InitialState = {
   user: {} as UserData,
   favorite: [] as Offer[],
   authorizationStatus: AuthorizationStatus.Unknown,
-  city: city,
+  city: city.Amsterdam,
   offers: [] as Offer[],
   allOffers: [] as Offer[],
   propertyOffer: {} as Offer,
@@ -45,7 +45,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.allOffers = action.payload;
     })
     .addCase(changeCity, (state, action) => {
-      state.city = action.payload;
+      state.city = city[action.payload];
     })
     .addCase(changeActiveSort, (state, action) => {
       state.currentSort = action.payload;

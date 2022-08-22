@@ -14,31 +14,14 @@ export default function NotFoundScreen({authorizationStatus}: NotFoundScreenProp
             <div className="header__left">
               <Header authorizationStatus={authorizationStatus} />
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
           </div>
         </div>
       </header>
 
       <main className="page__main">
-        <section>
+        <section style={{textAlign: 'center'}}>
           <h1>404. Not Found Pages</h1>
-          <Link to="/">Back to index</Link>
+          <Link to="/" style={{ fontSize: '24px', fontWeight: 'bold', textDecoration: 'underline', color: 'blue', }}>Back to index</Link>
         </section>
       </main>
     </div>

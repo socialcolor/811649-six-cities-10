@@ -1,19 +1,15 @@
 import { useEffect, useState, MutableRefObject, useRef } from 'react';
 import { Map, TileLayer } from 'leaflet';
 
-export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, center:{lat: number, lng: number}, zoom: number): Map | null {
+export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, center: { lat: number, lng: number }, zoom: number): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
-      const instance = new Map(mapRef.current, {
-        center: {
-          lat: center.lat,
-          lng: center.lng
-        },
-        zoom: zoom,
-      });
+
+
+      const instance = new Map(mapRef.current);
 
       const layer = new TileLayer(
         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -24,10 +20,15 @@ export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, cen
       );
 
       instance.addLayer(layer);
+      instance.setView([center.lat, center.lng], zoom);
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, center, zoom]);
+
+    if(isRenderedRef.current) {
+      map?.setView([center.lat, center.lng], zoom);
+    }
+  }, [mapRef, center, zoom, map]);
 
   return map;
 }

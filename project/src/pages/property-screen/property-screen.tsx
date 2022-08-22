@@ -12,6 +12,7 @@ import SendCommentForm from '../../components/send-comment-form/send-comment-for
 import Map from '../../components/map/map';
 import NearPlaces from '../../components/near-places/near-places';
 import { fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferAction } from '../../store/api-actions';
+import {AuthorizationStatus} from '../../const';
 
 type PropertyScreenProps = {
   authorizationStatus: string;
@@ -21,7 +22,6 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const params = useParams();
   const currentOfferId = Number(params.id);
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     dispatch(fetchLoadOfferAction(currentOfferId));
     dispatch(fetchLoadCommentAction(currentOfferId));
@@ -33,7 +33,6 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const offer = useAppSelector(getOffer());
   const review = useAppSelector(getComment());
   const nearOffers = useAppSelector(getNearbyOffers());
-
   const onOutOfOffer = () => {
     setActiveOffer(null);
   };
@@ -121,7 +120,7 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
               <section className="property__reviews reviews">
                 {review && <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{review.length}</span></h2>}
                 {review.map((comment) => <Review key={`${comment.date}-${comment.id}`} review={comment} />)}
-                <SendCommentForm />
+                {authorizationStatus === AuthorizationStatus.Auth && <SendCommentForm offerId={currentOfferId} />}
               </section>
             </div>
           </div>
