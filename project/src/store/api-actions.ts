@@ -1,8 +1,9 @@
+/* eslint-disable */
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import { APIRoute, AuthorizationStatus } from '../const';
-import { setOffers, setDataLoadedStatus, setPropertyOffer, setComment, setNearbyOffers, requireAuthorization, setUser } from './action';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
+import { setOffers, setDataLoadedStatus, setPropertyOffer, setComment, setNearbyOffers, requireAuthorization, setUser, redirectNotFound } from './action';
 import { Offers, Offer } from '../types/offer';
 import { Reviews } from '../types/review';
 import { UserData } from '../types/user-data';
@@ -81,6 +82,7 @@ export const fetchLoadOfferAction = createAsyncThunk<void, number, {
       const { data } = await api.get<Offer>(APIRoute.Offer.replace(':id', (id).toString()));
       dispatch(setPropertyOffer(data));
     } catch {
+      dispatch(redirectNotFound(AppRoute.NotFoundScreen));
       throw new Error('Unable to load offer');
     }
   }

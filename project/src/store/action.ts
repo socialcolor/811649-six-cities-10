@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
 import { Offer, City } from '../types/offer';
 import { UserData } from '../types/user-data';
 import { Review } from '../types/review';
@@ -13,3 +13,4 @@ export const setPropertyOffer = createAction<Offer>('setPropertyOffer');
 export const setNearbyOffers = createAction<Offer[]>('setNearbyOffers');
 export const requireAuthorization = createAction<AuthorizationStatus>('requireAuthorization');
 export const setUser = createAction<UserData>('setUser');
+export const redirectNotFound = createAction<AppRoute>('redirectNotFound');

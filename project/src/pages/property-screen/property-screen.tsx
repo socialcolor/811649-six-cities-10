@@ -21,7 +21,6 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const params = useParams();
   const currentOfferId = Number(params.id);
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     dispatch(fetchLoadOfferAction(currentOfferId));
     dispatch(fetchLoadCommentAction(currentOfferId));
@@ -33,7 +32,6 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const offer = useAppSelector(getOffer());
   const review = useAppSelector(getComment());
   const nearOffers = useAppSelector(getNearbyOffers());
-
   const onOutOfOffer = () => {
     setActiveOffer(null);
   };

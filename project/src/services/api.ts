@@ -35,6 +35,10 @@ const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
+      // if(StatusCodes.NOT_FOUND === error.response?.status ) {
+
+      // }
+
       if (error.response && shouldDisplayError(error.response)) {
         toast.error(error.response.data.error);
       }

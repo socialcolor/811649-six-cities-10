@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import IconArrowSelected from '../icon-arrow-select/icon-arrow-select';
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -13,6 +13,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthStatus, getDataLoaded, getFavoriteOffers } from '../../store/selectors';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { fetchLoadOffersAction } from '../../store/api-actions';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 
 export default function App(): JSX.Element {
@@ -34,7 +36,8 @@ export default function App(): JSX.Element {
   return (
     <React.Fragment>
       <IconArrowSelected />
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
+
         <ScrollToTop />
         <Routes>
           <Route path={AppRoute.Root} element={<MainScreen authorizationStatus={authorizationStatus} />} />
@@ -49,8 +52,7 @@ export default function App(): JSX.Element {
           <Route path={AppRoute.NotFoundScreen} element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
           <Route path="*" element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
         </Routes>
-
-      </BrowserRouter>
+      </HistoryRouter>
 
     </React.Fragment>
   );
