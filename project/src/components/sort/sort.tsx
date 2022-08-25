@@ -1,11 +1,11 @@
 import { useAppSelector } from '../../hooks';
 import { getCurrentSortName } from '../../store/selectors';
 import { SortTitles, SortName } from '../../const';
-import { MouseEvent, useState } from 'react';
+import { memo, MouseEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks/index';
 import { changeActiveSort } from '../../store/action';
 
-export default function Sort(): JSX.Element {
+function Sort(): JSX.Element {
   const [sortIsVisible, setSortIsVisible] = useState<boolean>(false);
   const sortName = useAppSelector(getCurrentSortName());
   const dispatch = useAppDispatch();
@@ -33,3 +33,5 @@ export default function Sort(): JSX.Element {
     </form >
   );
 }
+
+export default memo(Sort);

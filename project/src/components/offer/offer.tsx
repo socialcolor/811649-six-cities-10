@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer as OfferType} from '../../types/offer';
 import { calcRating } from '../../utils';
-import { MouseEvent } from 'react';
+import { memo, MouseEvent } from 'react';
 
 type OfferProps = {
   offer: OfferType;
@@ -10,7 +10,7 @@ type OfferProps = {
   onOutOfOffer?: () => void;
 }
 
-export default function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps): JSX.Element {
+function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps): JSX.Element {
   const offerHoverHandler = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
     if(onOfferHover) {
@@ -59,3 +59,5 @@ export default function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps)
     </article>
   );
 }
+
+export default memo(Offer);

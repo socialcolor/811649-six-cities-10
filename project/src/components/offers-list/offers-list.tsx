@@ -1,6 +1,7 @@
 import Offer from '../offer/offer';
 import { Offer as OfferType, Offers } from '../../types/offer';
 import Sort from '../sort/sort';
+import { memo } from 'react';
 
 type OfferListProps = {
   offers: Offers;
@@ -9,7 +10,7 @@ type OfferListProps = {
   onOutOfOffer: () => void;
 }
 
-export default function OffersList({offers, currentCityName, onOfferHover, onOutOfOffer}: OfferListProps): JSX.Element {
+function OffersList({offers, currentCityName, onOfferHover, onOutOfOffer}: OfferListProps): JSX.Element {
 
   return (
     <section className="cities__places places">
@@ -22,3 +23,5 @@ export default function OffersList({offers, currentCityName, onOfferHover, onOut
     </section>
   );
 }
+
+export default memo(OffersList);

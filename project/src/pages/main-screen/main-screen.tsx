@@ -3,7 +3,7 @@ import { Offer } from '../../types/offer';
 import Header from '../../components/header/header';
 import OfferList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useCallback, useState } from 'react';
 import { getOffers, getCurrentCityName } from '../../store/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { city } from '../../const';
@@ -19,11 +19,9 @@ export default function MainScreen({ authorizationStatus }: MainScreenProps): JS
   const offers = useAppSelector(getOffers());
   const currentCityName = useAppSelector(getCurrentCityName());
 
-  const onOfferHover = (offer: Offer) => {
-    setActiveOffer(offer);
-  };
+  const onOfferHover = useCallback((offer: Offer) => setActiveOffer(offer), []);
 
-  const onOutOfOffer = () => setActiveOffer(null);
+  const onOutOfOffer = useCallback(() => setActiveOffer(null), []);
 
   const onCitiesClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
