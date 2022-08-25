@@ -11,3 +11,4 @@ export const getCurrentSortName = () => (state: State) => state.currentSort;
 export const getDataLoaded = () => (state: State) => state.isDataLoaded;
 export const getAuthStatus = () => (state: State) => state.authorizationStatus;
 export const getUserData = () => (state: State) => state.user;
+export const getFormsError = () => (state: State) => state.formError;

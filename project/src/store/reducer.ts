@@ -2,9 +2,10 @@ import { createReducer } from '@reduxjs/toolkit';
 import { SortName, city } from '../const';
 import { Offer, City } from '../types/offer';
 import { Reviews } from '../types/review';
-import { changeCity, setOffers, changeActiveSort, setDataLoadedStatus, setPropertyOffer, setComment, setNearbyOffers, requireAuthorization, setUser } from './action';
+import { changeCity, setOffers, changeActiveSort, setDataLoadedStatus, setPropertyOffer, setComment, setNearbyOffers, requireAuthorization, setUser, setFormErrorSending, setFormError } from './action';
 import { AuthorizationStatus } from '../const';
 import { UserData } from '../types/user-data';
+import {FormError} from '../types/form-error';
 
 type InitialState = {
   user: UserData,
@@ -18,6 +19,7 @@ type InitialState = {
   isDataLoaded: boolean,
   comment: Reviews,
   nearbyOffers: Offer[];
+  formError: FormError;
 }
 const initialState: InitialState = {
   user: {} as UserData,
@@ -31,6 +33,10 @@ const initialState: InitialState = {
   isDataLoaded: false,
   comment: [] as Reviews,
   nearbyOffers: [] as Offer[],
+  formError: {
+    sending: false,
+    text: null,
+  }
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -43,6 +49,9 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
       state.allOffers = action.payload;
+    })
+    .addCase(setComment, (state, action) => {
+      state.comment = action.payload;
     })
     .addCase(changeCity, (state, action) => {
       state.city = city[action.payload];
@@ -70,10 +79,11 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setPropertyOffer, (state, action) => {
       state.propertyOffer = action.payload;
     })
-    .addCase(setComment, (state, action) => {
-      state.comment = action.payload;
-    })
     .addCase(setNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;
+    }).addCase(setFormErrorSending, (state, action) => {
+      state.formError.sending = action.payload;
+    }).addCase(setFormError, (state, action) => {
+      state.formError.text = action.payload;
     });
 });

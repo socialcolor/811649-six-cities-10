@@ -1,4 +1,4 @@
-import {CityNameType} from './types/city-name';
+import { CityNameType } from './types/city-name';
 
 const ACTIVE_OFFER_ID = 0;
 
@@ -30,7 +30,7 @@ const SortTitles = {
   [SortName.Top]: 'Top rated first',
 };
 
-const city:CityNameType = {
+const city: CityNameType = {
   Paris: {
     name: 'Paris',
     location: {
@@ -96,4 +96,14 @@ enum APIRoute {
   Logout = '/logout',
 }
 
-export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute };
+const labelTitle: {
+  [index: string]: string;
+} = {
+  1: 'terribly',
+  2: 'badly',
+  3: 'not bad',
+  4: 'good',
+  5: 'perfect',
+};
+
+export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute, labelTitle };

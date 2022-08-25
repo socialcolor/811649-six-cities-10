@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
-import { setOffers, setDataLoadedStatus, setPropertyOffer, setComment, setNearbyOffers, requireAuthorization, setUser, redirectNotFound } from './action';
+import { setOffers, setDataLoadedStatus, setPropertyOffer, setComment, setNearbyOffers, requireAuthorization, setUser, redirectNotFound, setFormErrorSending, setFormError } from './action';
 import { Offers, Offer } from '../types/offer';
 import { Reviews, Comment } from '../types/review';
 import { UserData } from '../types/user-data';
@@ -104,15 +104,21 @@ export const fetchLoadCommentAction = createAsyncThunk<void, number, {
       throw new Error('Unable to load comments');
     }
   });
-
 export const fetchSendCommentAction = createAsyncThunk<void, Comment, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance,
 }>(
-  'data/fetchSendComment', async ({id, comment, rating}, {dispatch, extra: api}) => {
-    await api.post<Comment>(APIRoute.Comment.replace(':id', (id).toString()), {comment: comment, rating: rating});
-    dispatch(fetchLoadCommentAction(id));
+  'data/fetchSendComment', async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    await api.post<Comment>(APIRoute.Comment.replace(':id', (id).toString()), { comment: comment, rating: rating }).then(() => {
+      dispatch(setFormError(null));
+      dispatch(setFormErrorSending(true));
+      dispatch(setFormErrorSending(false));
+      // dispatch(fetchLoadCommentAction(id));
+    }, (error) => {
+      dispatch(setFormError(error.toJSON().message));
+    });
+
   });
 
 export const fetchLoadNearbyOfferAction = createAsyncThunk<void, number, {

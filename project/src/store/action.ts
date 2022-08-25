@@ -14,3 +14,5 @@ export const setNearbyOffers = createAction<Offer[]>('setNearbyOffers');
 export const requireAuthorization = createAction<AuthorizationStatus>('requireAuthorization');
 export const setUser = createAction<UserData>('setUser');
 export const redirectNotFound = createAction<AppRoute>('redirectNotFound');
+export const setFormErrorSending = createAction<boolean>('setFormSending');
+export const setFormError = createAction<string | null>('setFormError');
