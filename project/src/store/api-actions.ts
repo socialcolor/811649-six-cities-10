@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
-import { setOffers, setDataLoadedStatus, setPropertyOffer, setComment, setNearbyOffers, requireAuthorization, setUser, redirectNotFound, setFormErrorSending, setFormError } from './action';
+import { setOffers, setDataLoadedStatus, setPropertyOffer, setComment, setNearbyOffers, requireAuthorization, setUser, redirect, setFormErrorSending, setFormError } from './action';
 import { Offers, Offer } from '../types/offer';
 import { Reviews, Comment } from '../types/review';
 import { UserData } from '../types/user-data';
@@ -17,10 +17,15 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
-    saveToken(data.token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(setUser(data));
+    await api.post<UserData>(APIRoute.Login, { email, password }).then((response) => {
+      dispatch(setFormError(null));
+      saveToken(response.data.token);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(setUser(response.data));
+      dispatch(redirect(AppRoute.Root));
+    }, (error) => {
+      dispatch(setFormError(error.toJSON().message));
+    });
   },
 );
 
@@ -61,8 +66,8 @@ export const fetchLoadOffersAction = createAsyncThunk<void, undefined, {
   'data/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<Offers>(APIRoute.Offers);
       dispatch(setDataLoadedStatus(true));
+      const { data } = await api.get<Offers>(APIRoute.Offers);
       dispatch(setOffers(data));
       dispatch(setDataLoadedStatus(false));
     } catch (error) {
@@ -79,11 +84,9 @@ export const fetchLoadOfferAction = createAsyncThunk<void, number, {
   async (id, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<Offer>(APIRoute.Offer.replace(':id', (id).toString()));
-      dispatch(setDataLoadedStatus(true));
       dispatch(setPropertyOffer(data));
-      dispatch(setDataLoadedStatus(false));
     } catch {
-      dispatch(redirectNotFound(AppRoute.NotFoundScreen));
+      dispatch(redirect(AppRoute.NotFoundScreen));
       throw new Error('Unable to load offer');
     }
   }
@@ -110,11 +113,11 @@ export const fetchSendCommentAction = createAsyncThunk<void, Comment, {
   extra: AxiosInstance,
 }>(
   'data/fetchSendComment', async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    dispatch(setFormErrorSending(true));
     await api.post<Comment>(APIRoute.Comment.replace(':id', (id).toString()), { comment: comment, rating: rating }).then(() => {
       dispatch(setFormError(null));
-      dispatch(setFormErrorSending(true));
       dispatch(setFormErrorSending(false));
-      // dispatch(fetchLoadCommentAction(id));
+      dispatch(fetchLoadCommentAction(id));
     }, (error) => {
       dispatch(setFormError(error.toJSON().message));
     });

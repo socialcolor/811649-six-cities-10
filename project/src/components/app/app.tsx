@@ -8,7 +8,7 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-// import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
+import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthStatus, getDataLoaded, getFavoriteOffers } from '../../store/selectors';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
@@ -24,6 +24,7 @@ export default function App(): JSX.Element {
   }, [dispatch]);
 
   const authorizationStatus = useAppSelector(getAuthStatus());
+
   const favoritesOffers = useAppSelector(getFavoriteOffers());
   const isDataLoaded = useAppSelector(getDataLoaded());
 
@@ -38,10 +39,10 @@ export default function App(): JSX.Element {
       <IconArrowSelected />
       <HistoryRouter history={browserHistory}>
 
-        {/* <ScrollToTop /> */}
+        <ScrollToTop />
         <Routes>
           <Route path={AppRoute.Root} element={<MainScreen authorizationStatus={authorizationStatus} />} />
-          <Route path={AppRoute.Login} element={<LoginScreen />} />
+          <Route path={AppRoute.Login} element={<LoginScreen authorizationStatus={authorizationStatus} />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
               <FavoritesScreen authorizationStatus={authorizationStatus} offers={favoritesOffers} />

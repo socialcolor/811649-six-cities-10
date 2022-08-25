@@ -12,31 +12,17 @@ export default function SendCommentForm({ offerId }: SendCommentFormProps): JSX.
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
   const [buttonState, setButtonState] = useState(true);
-  const [formState, setFormState] = useState(false);
 
   const { sending } = useAppSelector(getFormsError());
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (sending) {
-      setFormState(true);
-      setButtonState(true);
-      setComment('');
-    } else {
-      setComment('');
-      setFormState(false);
-      setButtonState(false);
-      setComment('');
-    }
     setComment('');
-
-    return () => {
-      setComment('');
-    };
+    setRating('');
   }, [sending]);
 
   useEffect(() => {
-    comment.length >= 50 && rating !== '' ? setButtonState(false) : setButtonState(true);
+    setButtonState(comment.length < 50 || rating === '');
   }, [comment, rating]);
 
   const onFormSend = (evt: FormEvent<HTMLFormElement>): void => {
@@ -55,7 +41,7 @@ export default function SendCommentForm({ offerId }: SendCommentFormProps): JSX.
       <div className="reviews__rating-form form__rating">
         {Array.from({ length: 5 }, (element, index) => index + 1).reverse().map((element) => (
           <React.Fragment key={element}>
-            <input className="form__rating-input visually-hidden" name="rating" value={element} id={`${element}-stars`} type="radio" onChange={({ target }) => setRating(target.value)} checked={element.toString() === rating} disabled={formState} />
+            <input className="form__rating-input visually-hidden" name="rating" value={element} id={`${element}-stars`} type="radio" onChange={({ target }) => setRating(target.value)} checked={element.toString() === rating} disabled={sending} />
             <label htmlFor={`${element}-stars`} className="reviews__rating-label form__rating-label" title={labelTitle[element]}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
@@ -65,13 +51,13 @@ export default function SendCommentForm({ offerId }: SendCommentFormProps): JSX.
         )
         )}
       </div>
-      <textarea maxLength={300} className="reviews__textarea form__textarea" id="review" value={comment} name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={({ target }) => setComment(target.value)} disabled={formState}>{comment}
+      <textarea maxLength={300} className="reviews__textarea form__textarea" id="review" value={comment} name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={({ target }) => setComment(target.value)} disabled={sending}>{comment}
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={buttonState}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={buttonState || sending}>Submit</button>
       </div>
     </form>
   );
