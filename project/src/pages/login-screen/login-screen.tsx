@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getFormsError } from '../../store/selectors';
+import { getFormUserError } from '../../store/user-process/selectors';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 import './login-screen.css';
@@ -15,7 +15,7 @@ export default function LoginScreen({ authorizationStatus }: LoginScreenProps): 
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
 
-  const { text } = useAppSelector(getFormsError());
+  const text = useAppSelector(getFormUserError());
   const dispatch = useAppDispatch();
 
   useEffect(() => {

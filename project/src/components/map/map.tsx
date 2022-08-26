@@ -6,7 +6,7 @@ import { Offer, Offers } from '../../types/offer';
 import { useEffect } from 'react';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getCurrentCity } from '../../store/selectors';
+import { getCurrentCity } from '../../store/filter-process/selectors';
 
 type MapProps = {
   offers: Offers;
@@ -58,4 +58,4 @@ function Map({ offers, activeOffer, size }: MapProps): JSX.Element {
   );
 }
 
-export default memo(Map, (prevProps, nextProps) => prevProps.offers === nextProps.offers && prevProps.activeOffer === nextProps.activeOffer);
+export default memo(Map);

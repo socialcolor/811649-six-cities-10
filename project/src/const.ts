@@ -106,4 +106,10 @@ const labelTitle: {
   5: 'perfect',
 };
 
+export enum NameSpace {
+  Data = 'DATA',
+  Filter = 'FILTER',
+  User = 'USER',
+}
+
 export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute, labelTitle };

@@ -1,20 +1,22 @@
-import { useAppSelector } from '../../hooks';
-import { getCurrentSortName } from '../../store/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getCurrentSortName } from '../../store/filter-process/selectors';
+import { setCurrentSort } from '../../store/filter-process/filter-process';
 import { SortTitles, SortName } from '../../const';
 import { memo, MouseEvent, useState } from 'react';
-import { useAppDispatch } from '../../hooks/index';
-import { changeActiveSort } from '../../store/action';
 
 function Sort(): JSX.Element {
   const [sortIsVisible, setSortIsVisible] = useState<boolean>(false);
-  const sortName = useAppSelector(getCurrentSortName());
+
   const dispatch = useAppDispatch();
+  const sortName = useAppSelector(getCurrentSortName());
+
   const sortListClickHandler = () => setSortIsVisible(!sortIsVisible);
   const sortHoverHandler = () => !sortIsVisible ? setSortIsVisible(!sortIsVisible) : null;
   const outOfSortHandler = () => sortIsVisible ? setSortIsVisible(!sortIsVisible) : null;
+
   const sortItemClickHandler = (evt: MouseEvent<HTMLElement>) => {
     const newSortName = evt.currentTarget.dataset.sort ? evt.currentTarget.dataset.sort : sortName;
-    dispatch(changeActiveSort(newSortName));
+    dispatch(setCurrentSort(newSortName));
   };
 
   return (

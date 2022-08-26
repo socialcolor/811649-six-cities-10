@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect } from 'react';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchSendCommentAction } from '../../store/api-actions';
-import { getFormsError } from '../../store/selectors';
+import { getFormsError } from '../../store/offers-data/selectors';
 import { labelTitle } from '../../const';
 
 type SendCommentFormProps = {

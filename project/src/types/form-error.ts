@@ -1,4 +1,4 @@
 export type FormError = {
   sending: boolean;
-  text: string | null,
+  text: string | null | unknown,
 };
