@@ -8,3 +8,4 @@ export const getNearbyOffers = () => (state: State) => state[NameSpace.Data].nea
 export const getFavoriteOffers = () => (state: State) => state[NameSpace.Data].favorite;
 export const getDataLoaded = () => (state: State) => state[NameSpace.Data].isDataLoaded;
 export const getFormsError = () => (state: State) => state[NameSpace.Data].formError;
+export const getLoadOffersError = () => (state: State) => state[NameSpace.Data].errorLoadOffers;

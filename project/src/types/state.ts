@@ -14,6 +14,7 @@ export type OffersData = {
   comment: Reviews | null,
   nearbyOffers: Offer[];
   formError: FormError;
+  errorLoadOffers: boolean;
 };
 
 export type UserProcess = {

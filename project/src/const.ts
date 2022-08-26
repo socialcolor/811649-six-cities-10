@@ -7,7 +7,8 @@ const enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer/:id',
-  NotFoundScreen = '/NotFoundScreen',
+  NotFoundScreen = '/notfoundscreen',
+  MainEmptyScreen = '/main-empty-screen'
 }
 
 const enum AuthorizationStatus {

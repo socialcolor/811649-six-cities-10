@@ -15,6 +15,7 @@ const initialState: OffersData = {
     sending: false,
     text: null
   },
+  errorLoadOffers: false,
 };
 
 export const offersData = createSlice({
@@ -28,11 +29,16 @@ export const offersData = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchLoadOffersAction.pending, (state) => {
+        state.errorLoadOffers = false;
         state.isDataLoaded = true;
       })
       .addCase(fetchLoadOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.allOffers = action.payload;
+        state.isDataLoaded = false;
+      })
+      .addCase(fetchLoadOffersAction.rejected, (state) => {
+        state.errorLoadOffers = true;
         state.isDataLoaded = false;
       })
       .addCase(fetchLoadOfferAction.pending, (state) => {

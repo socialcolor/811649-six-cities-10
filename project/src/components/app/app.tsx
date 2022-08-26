@@ -16,7 +16,7 @@ import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthStatus } from '../../store/user-process/selectors';
 import { getFavoriteOffers, getDataLoaded } from '../../store/offers-data/selectors';
-
+import MainEpmtyScreen from '../../pages/main-empty-screen/main-empty-screen';
 
 export default function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -52,6 +52,7 @@ export default function App(): JSX.Element {
           />
           <Route path={AppRoute.Room} element={<PropertyScreen authorizationStatus={authorizationStatus} />} />
           <Route path={AppRoute.NotFoundScreen} element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
+          <Route path={AppRoute.MainEmptyScreen} element={<MainEpmtyScreen authorizationStatus={authorizationStatus} />} />
           <Route path="*" element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
         </Routes>
       </HistoryRouter>

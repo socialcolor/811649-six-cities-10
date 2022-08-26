@@ -4,11 +4,12 @@ import Header from '../../components/header/header';
 import OfferList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { MouseEvent, useCallback, useState } from 'react';
-import { getOffers } from '../../store/offers-data/selectors';
+import { getOffers, getLoadOffersError } from '../../store/offers-data/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { city } from '../../const';
+import { AppRoute, city } from '../../const';
 import { changeCity } from '../../store/filter-process/filter-process';
 import { getCurrentCityName } from '../../store/filter-process/selectors';
+import { Navigate } from 'react-router-dom';
 
 type MainScreenProps = {
   authorizationStatus: string;
@@ -19,6 +20,7 @@ export default function MainScreen({ authorizationStatus }: MainScreenProps): JS
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const currentCityName = useAppSelector(getCurrentCityName());
   const offers = useAppSelector(getOffers(currentCityName));
+  const errorLoad = useAppSelector(getLoadOffersError());
 
   const onOfferHover = useCallback((offer: Offer) => setActiveOffer(offer), []);
 
@@ -31,6 +33,10 @@ export default function MainScreen({ authorizationStatus }: MainScreenProps): JS
       dispatch(changeCity(cityName));
     }
   };
+
+  if(errorLoad) {
+    return <Navigate to={AppRoute.MainEmptyScreen} />;
+  }
 
   return (
     <div className="page page--gray page--main">
