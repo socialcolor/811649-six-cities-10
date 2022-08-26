@@ -1,25 +1,41 @@
+/* eslint-disable */
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Header from '../../components/header/header';
-import { Offers, Offer } from '../../types/offer';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { Offer, Offers } from '../../types/offer';
+import { useEffect } from 'react';
+import { fetchChangeFavorite } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
 
 type FavoritesScreenProps = {
   authorizationStatus: string;
   offers: Offers;
 }
+type AccType = {
+  [key: string]: Offer[];
+};
 
 export default function FavoritesScreen({ authorizationStatus, offers }: FavoritesScreenProps): JSX.Element {
-  const dict = offers.reduce<{ [key: string]: Offer[] }>((acc, offer: Offer) => {
-    if (offer.isFavorite) {
-      if (acc[offer.city.name]) {
-        acc[offer.city.name].push(offer);
-      } else {
-        acc[offer.city.name] = [offer];
-      }
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.Root);
+    }
+  }, [authorizationStatus, navigate]);
+
+  const dict = offers.reduce<{ [key: string]: Offer[] }>((acc: AccType, offer: Offer) => {
+    if (acc[offer.city.name]) {
+      acc[offer.city.name].push(offer);
+    } else {
+      acc[offer.city.name] = [offer];
     }
     return acc;
   }, {});
 
   const cities = Object.keys(dict);
+
   return (
     <div className="page">
       <Header authorizationStatus={authorizationStatus} />

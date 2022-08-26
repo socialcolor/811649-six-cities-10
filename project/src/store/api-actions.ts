@@ -8,6 +8,7 @@ import { Reviews, Comment } from '../types/review';
 import { UserData } from '../types/user-data';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
+import { Favorite } from '../types/favorite';
 
 type AsyncThunkType = {
   dispatch: AppDispatch,
@@ -15,8 +16,9 @@ type AsyncThunkType = {
   extra: AxiosInstance
 };
 
-export const checkAuthAction = createAsyncThunk<void, undefined, AsyncThunkType>('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
-  await api.get(APIRoute.Login);
+export const checkAuthAction = createAsyncThunk<UserData, undefined, AsyncThunkType>('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
+  const { data } = await api.get(APIRoute.Login);
+  return data;
 });
 
 export const loginAction = createAsyncThunk<UserData, AuthData, AsyncThunkType>('user/login', async ({ login: email, password }, { dispatch, extra: api }) => {
@@ -54,5 +56,14 @@ export const fetchSendCommentAction = createAsyncThunk<Reviews, Comment, AsyncTh
 export const fetchLoadNearbyOfferAction = createAsyncThunk<Offers, number, AsyncThunkType>('data/fetchLoadNearbyOffer', async (id, { dispatch, extra: api }) => {
   const { data } = await api.get<Offers>(APIRoute.Nearby.replace(':id', (id).toString()));
   return data;
+});
+
+export const fetchLoadFavoriteAction = createAsyncThunk<Offer[], undefined, AsyncThunkType>('favorite/fetLoadFavorite', async (id, { dispatch, extra: api }) => {
+  const { data } = await api.get<Offers>(APIRoute.Favorite);
+  return data;
+});
+
+export const fetchChangeFavorite = createAsyncThunk<void, Favorite, AsyncThunkType>('favorite/fetchChangeFavorite', async ({ id, isFavorite }, { dispatch, extra: api }) => {
+  await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
 });
 

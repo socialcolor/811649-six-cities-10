@@ -5,7 +5,6 @@ export const getOffers = (cityName: string) => (state: State,) => state[NameSpac
 export const getOffer = () => (state: State) => state[NameSpace.Data].propertyOffer;
 export const getComment = () => (state: State) => state[NameSpace.Data].comment;
 export const getNearbyOffers = () => (state: State) => state[NameSpace.Data].nearbyOffers;
-export const getFavoriteOffers = () => (state: State) => state[NameSpace.Data].favorite;
 export const getDataLoaded = () => (state: State) => state[NameSpace.Data].isDataLoaded;
 export const getFormsError = () => (state: State) => state[NameSpace.Data].formError;
 export const getLoadOffersError = () => (state: State) => state[NameSpace.Data].errorLoadOffers;

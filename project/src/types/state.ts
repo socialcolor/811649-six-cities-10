@@ -6,7 +6,6 @@ import { AuthorizationStatus } from '../const';
 import { UserData } from './user-data';
 
 export type OffersData = {
-  favorite: Offer[],
   offers: Offer[],
   allOffers: Offer[],
   propertyOffer: Offer | null | undefined,
@@ -26,6 +25,10 @@ export type UserProcess = {
 export type FilterProcess = {
   city: City;
   currentSort: string;
+}
+
+export type FavoriteProcess = {
+  favorite: Offer[] | [],
 }
 
 export type State = ReturnType<typeof store.getState>;

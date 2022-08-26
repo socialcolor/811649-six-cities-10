@@ -3,7 +3,7 @@ import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { getUserData } from '../../store/user-process/selectors';
-import { getFavoriteOffers } from '../../store/offers-data/selectors';
+import { getFavoriteOffers } from '../../store/favorite-process/selectors';
 
 export default function Login(): JSX.Element {
   const dispatch = useAppDispatch();

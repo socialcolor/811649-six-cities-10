@@ -4,7 +4,6 @@ import { OffersData } from '../../types/state';
 import { fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferAction, fetchLoadOffersAction, fetchSendCommentAction } from '../api-actions';
 
 const initialState: OffersData = {
-  favorite: [],
   offers: [],
   allOffers: [],
   propertyOffer: null,
