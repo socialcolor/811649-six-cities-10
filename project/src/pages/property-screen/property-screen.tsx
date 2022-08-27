@@ -13,7 +13,6 @@ import Map from '../../components/map/map';
 import NearPlaces from '../../components/near-places/near-places';
 import { fetchChangeFavorite, fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../const';
-import { changeFavoriteOffer, changeFavoritePropertyOffer } from '../../store/offers-data/offers-data';
 import './property-screen.css';
 
 type PropertyScreenProps = {
@@ -49,8 +48,6 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
     if (authorizationStatus === AuthorizationStatus.Auth) {
       if (offer) {
         dispatch(fetchChangeFavorite({ id: offer.id, isFavorite: +!offer.isFavorite }));
-        dispatch(changeFavoriteOffer(offer.id));
-        dispatch(changeFavoritePropertyOffer());
       }
     } else {
       navigate(AppRoute.Login);

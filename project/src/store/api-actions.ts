@@ -9,6 +9,7 @@ import { UserData } from '../types/user-data';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
 import { Favorite } from '../types/favorite';
+import { changeFavoriteOffer, changeFavoritePropertyOffer } from './offers-data/offers-data';
 
 type AsyncThunkType = {
   dispatch: AppDispatch,
@@ -65,6 +66,8 @@ export const fetchLoadFavoriteAction = createAsyncThunk<Offer[], undefined, Asyn
 
 export const fetchChangeFavorite = createAsyncThunk<Offer, Favorite, AsyncThunkType>('favorite/fetchChangeFavorite', async ({ id, isFavorite }, { dispatch, extra: api }) => {
   const { data } = await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+  dispatch(changeFavoriteOffer(data.id));
+  dispatch(changeFavoritePropertyOffer());
   return data;
 });
 

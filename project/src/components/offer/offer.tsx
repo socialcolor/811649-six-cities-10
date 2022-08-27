@@ -6,7 +6,6 @@ import { memo, MouseEvent, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchChangeFavorite } from '../../store/api-actions';
 import { getAuthStatus } from '../../store/user-process/selectors';
-import { changeFavoriteOffer } from '../../store/offers-data/offers-data';
 
 type OfferProps = {
   offer: OfferType;
@@ -35,7 +34,6 @@ function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps): JSX.Element {
   const favoiteClickHandler = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(fetchChangeFavorite({ id: offer.id, isFavorite: +!offer.isFavorite }));
-      dispatch(changeFavoriteOffer(offer.id));
     } else {
       navigate(AppRoute.Login);
     }
