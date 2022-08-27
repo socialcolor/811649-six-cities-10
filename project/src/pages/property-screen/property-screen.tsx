@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -11,8 +11,10 @@ import Review from '../../components/review/review';
 import SendCommentForm from '../../components/send-comment-form/send-comment-form';
 import Map from '../../components/map/map';
 import NearPlaces from '../../components/near-places/near-places';
-import { fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferAction } from '../../store/api-actions';
-import {AuthorizationStatus} from '../../const';
+import { fetchChangeFavorite, fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferAction } from '../../store/api-actions';
+import { AuthorizationStatus } from '../../const';
+import { changeFavoriteOffer, changeFavoritePropertyOffer } from '../../store/offers-data/offers-data';
+import './property-screen.css';
 
 type PropertyScreenProps = {
   authorizationStatus: string;
@@ -22,6 +24,8 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const params = useParams();
   const currentOfferId = Number(params.id);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(fetchLoadOfferAction(currentOfferId));
     dispatch(fetchLoadCommentAction(currentOfferId));
@@ -39,6 +43,18 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
 
   const onOfferHover = (hoveredOffer: Offer) => {
     setActiveOffer(hoveredOffer);
+  };
+
+  const favoiteClickHandler = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      if (offer) {
+        dispatch(fetchChangeFavorite({ id: offer.id, isFavorite: +!offer.isFavorite }));
+        dispatch(changeFavoriteOffer(offer.id));
+        dispatch(changeFavoritePropertyOffer());
+      }
+    } else {
+      navigate(AppRoute.Login);
+    }
   };
 
   if (offer === undefined) {
@@ -65,8 +81,8 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
               {offer && offer.isPremium && <div className="property__mark"><span>Premium</span></div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{offer && offer.title}</h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
+                <button className={offer && offer.isFavorite ? 'property__bookmark-button button property__bookmark-button--active' : 'property__bookmark-button button'} type="button">
+                  <svg className="property__bookmark-icon" width="31" height="33" onClick={favoiteClickHandler}>
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
@@ -104,7 +120,7 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className={offer && offer.host && offer.host.isPro ? 'property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper' : 'property__avatar-wrapper'}>
-                    {offer && <img className="property__avatar user__avatar" src={offer.host && offer.host.avatarUrl } width="74" height="74" alt="Host avatar" />}
+                    {offer && <img className="property__avatar user__avatar" src={offer.host && offer.host.avatarUrl} width="74" height="74" alt="Host avatar" />}
                   </div>
                   <span className="property__user-name">
                     {offer && offer.host && offer.host.name}
@@ -130,7 +146,7 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((nearOffer) => <NearPlaces key={nearOffer.id} offer={nearOffer} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer}/>)}
+              {nearOffers.map((nearOffer) => <NearPlaces key={nearOffer.id} offer={nearOffer} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer} />)}
             </div>
           </section>
         </div>

@@ -24,13 +24,18 @@ export const offersData = createSlice({
       state.formError.text = null;
     },
     changeFavoriteOffer: (state, action) => {
-      state.offers = [...state.offers].map((offer) => {
-        if (offer.id === action.payload) {
-          offer.isFavorite = !offer.isFavorite;
-        }
-        return offer;
-      });
+      const offers = state.offers;
+      const offer = offers.find((x) => x.id === action.payload);
+      if(offer) {
+        offer.isFavorite = !offer.isFavorite;
+      }
+      state.offers = [...offers];
     },
+    changeFavoritePropertyOffer: (state) => {
+      if(state.propertyOffer) {
+        state.propertyOffer.isFavorite = !state.propertyOffer.isFavorite;
+      }
+    }
   },
   extraReducers(builder) {
     builder
@@ -76,4 +81,4 @@ export const offersData = createSlice({
   },
 });
 
-export const { setFormError, changeFavoriteOffer } = offersData.actions;
+export const { setFormError, changeFavoriteOffer, changeFavoritePropertyOffer } = offersData.actions;
