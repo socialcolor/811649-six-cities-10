@@ -14,6 +14,7 @@ import NearPlaces from '../../components/near-places/near-places';
 import { fetchChangeFavorite, fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../const';
 import './property-screen.css';
+import { changeFavoriteOffer, changeFavoritePropertyOffer } from '../../store/offers-data/offers-data';
 
 type PropertyScreenProps = {
   authorizationStatus: string;
@@ -47,7 +48,9 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const favoiteClickHandler = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       if (offer) {
-        dispatch(fetchChangeFavorite({ id: offer.id, isFavorite: +!offer.isFavorite }));
+        dispatch(fetchChangeFavorite({ id: offer.id, isFavorite: !offer.isFavorite }));
+        dispatch(changeFavoriteOffer(offer.id));
+        dispatch(changeFavoritePropertyOffer());
       }
     } else {
       navigate(AppRoute.Login);
