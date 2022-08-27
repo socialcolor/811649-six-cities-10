@@ -3,11 +3,13 @@ import { Offer } from '../../types/offer';
 import Header from '../../components/header/header';
 import OfferList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
-import { MouseEvent, useState } from 'react';
-import { getOffers, getCurrentCityName } from '../../store/selectors';
+import { MouseEvent, useCallback, useState } from 'react';
+import { getOffers, getLoadOffersError } from '../../store/offers-data/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { city } from '../../const';
-import { changeCity } from '../../store/action';
+import { AppRoute, city } from '../../const';
+import { changeCity } from '../../store/filter-process/filter-process';
+import { getCurrentCityName } from '../../store/filter-process/selectors';
+import { Navigate } from 'react-router-dom';
 
 type MainScreenProps = {
   authorizationStatus: string;
@@ -16,22 +18,25 @@ type MainScreenProps = {
 export default function MainScreen({ authorizationStatus }: MainScreenProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  const offers = useAppSelector(getOffers());
   const currentCityName = useAppSelector(getCurrentCityName());
+  const offers = useAppSelector(getOffers(currentCityName));
+  const errorLoad = useAppSelector(getLoadOffersError());
 
-  const onOfferHover = (offer: Offer) => {
-    setActiveOffer(offer);
-  };
+  const onOfferHover = useCallback((offer: Offer) => setActiveOffer(offer), []);
 
-  const onOutOfOffer = () => setActiveOffer(null);
+  const onOutOfOffer = useCallback(() => setActiveOffer(null), []);
 
   const onCitiesClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     const cityName = evt.currentTarget.dataset.city;
-    if(cityName) {
+    if (cityName) {
       dispatch(changeCity(cityName));
     }
   };
+
+  if(errorLoad) {
+    return <Navigate to={AppRoute.MainEmptyScreen} />;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -45,7 +50,7 @@ export default function MainScreen({ authorizationStatus }: MainScreenProps): JS
             <ul className="locations__list tabs__list">
               {Object.keys(city).map((name) => (
                 <li key={name} className="locations__item">
-                  <a className={currentCityName === name ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link' } data-city={name} onClick={onCitiesClick} href="/#">
+                  <a className={currentCityName === name ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link'} data-city={name} onClick={onCitiesClick} href="/#">
                     <span>{name}</span>
                   </a>
                 </li>

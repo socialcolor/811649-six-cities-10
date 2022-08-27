@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import UserName from '../user-name/user-name';
@@ -6,7 +7,7 @@ type HeaderProps = {
   authorizationStatus: string;
 }
 
-export default function Header({ authorizationStatus }: HeaderProps): JSX.Element {
+function Header({ authorizationStatus }: HeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -24,3 +25,5 @@ export default function Header({ authorizationStatus }: HeaderProps): JSX.Elemen
     </header>
   );
 }
+
+export default memo(Header);

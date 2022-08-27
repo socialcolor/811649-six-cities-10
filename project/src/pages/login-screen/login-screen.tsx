@@ -1,16 +1,29 @@
-import { FormEvent, useRef } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { FormEvent, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFormUserError } from '../../store/user-process/selectors';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
+import './login-screen.css';
 
-export default function LoginScreen(): JSX.Element {
+type LoginScreenProps = {
+  authorizationStatus: string;
+}
+export default function LoginScreen({ authorizationStatus }: LoginScreenProps): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const text = useAppSelector(getFormUserError());
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Root);
+    }
+  }, [authorizationStatus, navigate]);
+
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -24,7 +37,6 @@ export default function LoginScreen(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
-      navigate(AppRoute.Root);
     }
   };
 
@@ -48,11 +60,11 @@ export default function LoginScreen(): JSX.Element {
             <form className="login__form form" action="/#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required ref={loginRef} />
+                <input className={text ? 'login__input form__input login__input--error' : 'login__input form__input'} type="email" name="email" placeholder="Email" required ref={loginRef} />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required ref={passwordRef} />
+                <input className={text ? 'login__input form__input login__input--error' : 'login__input form__input'} type="password" name="password" placeholder="Password" required ref={passwordRef} />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>

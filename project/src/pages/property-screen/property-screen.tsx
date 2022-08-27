@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getOffer, getComment, getNearbyOffers } from '../../store/selectors';
+import { getOffer, getComment, getNearbyOffers } from '../../store/offers-data/selectors';
 import { Offer } from '../../types/offer';
 import { calcRating } from '../../utils';
 import Header from '../../components/header/header';
@@ -62,9 +62,9 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offer.isPremium && <div className="property__mark"><span>Premium</span></div>}
+              {offer && offer.isPremium && <div className="property__mark"><span>Premium</span></div>}
               <div className="property__name-wrapper">
-                <h1 className="property__name">{offer.title}</h1>
+                <h1 className="property__name">{offer && offer.title}</h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -74,24 +74,24 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: calcRating(offer.rating) }}></span>
+                  {offer && <span style={{ width: calcRating(offer.rating) }}></span>}
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{offer.rating}</span>
+                <span className="property__rating-value rating__value">{offer && offer.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {offer.type}
+                  {offer && offer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {offer.bedrooms} Bedrooms
+                  {offer && offer.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {offer.maxAdults} adults
+                  Max {offer && offer.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{offer.price}</b>
+                <b className="property__price-value">&euro;{offer && offer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
@@ -104,7 +104,7 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className={offer && offer.host && offer.host.isPro ? 'property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper' : 'property__avatar-wrapper'}>
-                    <img className="property__avatar user__avatar" src={offer && offer.host && offer.host.avatarUrl } width="74" height="74" alt="Host avatar" />
+                    {offer && <img className="property__avatar user__avatar" src={offer.host && offer.host.avatarUrl } width="74" height="74" alt="Host avatar" />}
                   </div>
                   <span className="property__user-name">
                     {offer && offer.host && offer.host.name}
@@ -113,13 +113,13 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {offer.description}
+                    {offer && offer.description}
                   </p>
                 </div>
               </div>
               <section className="property__reviews reviews">
                 {review && <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{review.length}</span></h2>}
-                {review.map((comment) => <Review key={`${comment.date}-${comment.id}`} review={comment} />)}
+                {review && review.map((comment) => <Review key={`${comment.date}-${comment.id}`} review={comment} />)}
                 {authorizationStatus === AuthorizationStatus.Auth && <SendCommentForm offerId={currentOfferId} />}
               </section>
             </div>
