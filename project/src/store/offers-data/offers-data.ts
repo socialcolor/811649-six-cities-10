@@ -5,7 +5,6 @@ import { fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferActio
 
 const initialState: OffersData = {
   offers: [],
-  allOffers: [],
   propertyOffer: null,
   isDataLoaded: false,
   comment: null,
@@ -24,16 +23,24 @@ export const offersData = createSlice({
     setFormError: (state) => {
       state.formError.text = null;
     },
+    changeFavoriteOffer: (state, action) => {
+      state.offers = [...state.offers].map((offer) => {
+        if (offer.id === action.payload) {
+          offer.isFavorite = !offer.isFavorite;
+        }
+        return offer;
+      });
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(fetchLoadOffersAction.pending, (state) => {
+        state.offers = [];
         state.errorLoadOffers = false;
         state.isDataLoaded = true;
       })
       .addCase(fetchLoadOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
-        state.allOffers = action.payload;
         state.isDataLoaded = false;
       })
       .addCase(fetchLoadOffersAction.rejected, (state) => {
@@ -69,4 +76,4 @@ export const offersData = createSlice({
   },
 });
 
-export const {setFormError} = offersData.actions;
+export const { setFormError, changeFavoriteOffer } = offersData.actions;

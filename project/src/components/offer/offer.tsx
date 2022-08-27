@@ -4,8 +4,10 @@ import { Offer as OfferType} from '../../types/offer';
 import { calcRating } from '../../utils';
 import { memo, MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchChangeFavorite } from '../../store/api-actions';
+import { fetchChangeFavorite} from '../../store/api-actions';
 import {getAuthStatus} from '../../store/user-process/selectors';
+import { changeFavoriteOffer } from '../../store/offers-data/offers-data';
+
 type OfferProps = {
   offer: OfferType;
   onOfferHover?: (offer: OfferType) => void;
@@ -16,6 +18,7 @@ function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthStatus());
   const navigate = useNavigate();
+
   const offerHoverHandler = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
     if(onOfferHover) {
@@ -32,6 +35,7 @@ function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps): JSX.Element {
   const favoiteClickHandler = () => {
     if(authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(fetchChangeFavorite({id: offer.id, isFavorite: +!offer.isFavorite}));
+      dispatch(changeFavoriteOffer(offer.id));
     } else {
       navigate(AppRoute.Login);
     }

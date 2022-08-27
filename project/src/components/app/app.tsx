@@ -16,7 +16,6 @@ import browserHistory from '../../browser-history';
 import { getAuthStatus } from '../../store/user-process/selectors';
 import { getDataLoaded } from '../../store/offers-data/selectors';
 import MainEpmtyScreen from '../../pages/main-empty-screen/main-empty-screen';
-import { getFavoriteOffers } from '../../store/favorite-process/selectors';
 
 export default function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -27,7 +26,7 @@ export default function App(): JSX.Element {
 
   const authorizationStatus = useAppSelector(getAuthStatus());
   const isDataLoaded = useAppSelector(getDataLoaded());
-  const offers = useAppSelector(getFavoriteOffers());
+
   if (isDataLoaded) {
     return (
       <LoadingScreen />
@@ -43,7 +42,7 @@ export default function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Root} element={<MainScreen authorizationStatus={authorizationStatus} />} />
           <Route path={AppRoute.Login} element={<LoginScreen authorizationStatus={authorizationStatus} />} />
-          <Route path={AppRoute.Favorites} element={<FavoritesScreen authorizationStatus={authorizationStatus} offers={offers} />} />
+          <Route path={AppRoute.Favorites} element={<FavoritesScreen authorizationStatus={authorizationStatus} />} />
           <Route path={AppRoute.Room} element={<PropertyScreen authorizationStatus={authorizationStatus} />} />
           <Route path={AppRoute.NotFoundScreen} element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
           <Route path={AppRoute.MainEmptyScreen} element={<MainEpmtyScreen authorizationStatus={authorizationStatus} />} />
