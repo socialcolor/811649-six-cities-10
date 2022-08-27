@@ -7,7 +7,6 @@ import { UserData } from './user-data';
 
 export type OffersData = {
   offers: Offer[],
-  allOffers: Offer[],
   propertyOffer: Offer | null | undefined,
   isDataLoaded: boolean,
   comment: Reviews | null,
@@ -28,7 +27,7 @@ export type FilterProcess = {
 }
 
 export type FavoriteProcess = {
-  favorite: Offer[] | [],
+  favorite: Offer[] | [];
 }
 
 export type State = ReturnType<typeof store.getState>;

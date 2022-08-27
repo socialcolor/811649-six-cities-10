@@ -1,4 +1,4 @@
 export type Favorite = {
   id: number;
-  isFavorite: number;
+  isFavorite: boolean;
 }

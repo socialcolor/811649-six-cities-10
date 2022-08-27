@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchSendCommentAction } from '../../store/api-actions';
 import { getFormsError } from '../../store/offers-data/selectors';
-import { labelTitle } from '../../const';
+import { LabelTitle } from '../../const';
 
 type SendCommentFormProps = {
   offerId: number;
@@ -42,7 +42,7 @@ export default function SendCommentForm({ offerId }: SendCommentFormProps): JSX.
         {Array.from({ length: 5 }, (element, index) => index + 1).reverse().map((element) => (
           <React.Fragment key={element}>
             <input className="form__rating-input visually-hidden" name="rating" value={element} id={`${element}-stars`} type="radio" onChange={({ target }) => setRating(target.value)} checked={element.toString() === rating} disabled={sending} />
-            <label htmlFor={`${element}-stars`} className="reviews__rating-label form__rating-label" title={labelTitle[element]}>
+            <label htmlFor={`${element}-stars`} className="reviews__rating-label form__rating-label" title={LabelTitle[element]}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>

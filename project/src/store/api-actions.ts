@@ -63,7 +63,8 @@ export const fetchLoadFavoriteAction = createAsyncThunk<Offer[], undefined, Asyn
   return data;
 });
 
-export const fetchChangeFavorite = createAsyncThunk<void, Favorite, AsyncThunkType>('favorite/fetchChangeFavorite', async ({ id, isFavorite }, { dispatch, extra: api }) => {
-  await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+export const fetchChangeFavorite = createAsyncThunk<Offer, Favorite, AsyncThunkType>('favorite/fetchChangeFavorite', async ({ id, isFavorite }, { dispatch, extra: api }) => {
+  const { data } = await api.post(`${APIRoute.Favorite}/${id}/${+isFavorite}`);
+  return data;
 });
 

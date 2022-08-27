@@ -1,29 +1,29 @@
-/* eslint-disable */
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Header from '../../components/header/header';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { Offer, Offers } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { useEffect } from 'react';
-import { fetchChangeFavorite } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useAppSelector } from '../../hooks';
+import { getFavoriteOffers } from '../../store/favorite-process/selectors';
 
 type FavoritesScreenProps = {
   authorizationStatus: string;
-  offers: Offers;
 }
 type AccType = {
   [key: string]: Offer[];
 };
 
-export default function FavoritesScreen({ authorizationStatus, offers }: FavoritesScreenProps): JSX.Element {
+export default function FavoritesScreen({ authorizationStatus }: FavoritesScreenProps): JSX.Element {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.Root);
     }
   }, [authorizationStatus, navigate]);
+
+  const offers: Offer[] = useAppSelector(getFavoriteOffers());
 
   const dict = offers.reduce<{ [key: string]: Offer[] }>((acc: AccType, offer: Offer) => {
     if (acc[offer.city.name]) {
