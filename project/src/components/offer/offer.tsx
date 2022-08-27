@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { Offer as OfferType} from '../../types/offer';
+import { Offer as OfferType } from '../../types/offer';
 import { calcRating } from '../../utils';
-import { memo, MouseEvent } from 'react';
+import { memo, MouseEvent, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchChangeFavorite} from '../../store/api-actions';
-import {getAuthStatus} from '../../store/user-process/selectors';
+import { fetchChangeFavorite } from '../../store/api-actions';
+import { getAuthStatus } from '../../store/user-process/selectors';
 import { changeFavoriteOffer } from '../../store/offers-data/offers-data';
 
 type OfferProps = {
@@ -19,22 +19,22 @@ function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthStatus());
   const navigate = useNavigate();
 
-  const offerHoverHandler = (event: MouseEvent<HTMLElement>) => {
+  const offerHoverHandler = useCallback((event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    if(onOfferHover) {
+    if (onOfferHover) {
       onOfferHover(offer);
     }
-  };
+  }, [offer, onOfferHover]);
 
-  const outOfOfferHandler = () => {
-    if(onOutOfOffer) {
+  const outOfOfferHandler = useCallback(() => {
+    if (onOutOfOffer) {
       onOutOfOffer();
     }
-  };
+  }, [onOutOfOffer]);
 
   const favoiteClickHandler = () => {
-    if(authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(fetchChangeFavorite({id: offer.id, isFavorite: +!offer.isFavorite}));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchChangeFavorite({ id: offer.id, isFavorite: +!offer.isFavorite }));
       dispatch(changeFavoriteOffer(offer.id));
     } else {
       navigate(AppRoute.Login);

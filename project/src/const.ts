@@ -97,7 +97,7 @@ enum APIRoute {
   Logout = '/logout',
 }
 
-const labelTitle: {
+const LabelTitle: {
   [index: string]: string;
 } = {
   1: 'terribly',
@@ -114,4 +114,4 @@ export enum NameSpace {
   Favorite = 'FAVORITE',
 }
 
-export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute, labelTitle };
+export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute, LabelTitle };
