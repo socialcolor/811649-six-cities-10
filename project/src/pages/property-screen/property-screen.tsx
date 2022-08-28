@@ -34,13 +34,6 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const offer = useAppSelector(getOffer());
   const review = useAppSelector(getComment());
   const nearOffers = useAppSelector(getNearbyOffers());
-  // const onOutOfOffer = () => {
-  //   setActiveOffer(null);
-  // };
-
-  // const onOfferHover = (hoveredOffer: Offer) => {
-  //   setActiveOffer(hoveredOffer);
-  // };
 
   const favoiteClickHandler = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {

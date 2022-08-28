@@ -59,7 +59,7 @@ export const offersData = createSlice({
         state.propertyOffer = undefined;
       })
       .addCase(fetchLoadCommentAction.fulfilled, (state, action) => {
-        state.comment = action.payload;
+        state.comment = action.payload.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).splice(0, 10);
       })
       .addCase(fetchSendCommentAction.pending, (state) => {
         state.formError.sending = true;
@@ -70,7 +70,7 @@ export const offersData = createSlice({
       .addCase(fetchSendCommentAction.fulfilled, (state, action) => {
         state.formError.text = null;
         state.formError.sending = false;
-        state.comment = action.payload;
+        state.comment = state.comment = action.payload.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).splice(0, 10);
       })
       .addCase(fetchLoadNearbyOfferAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
