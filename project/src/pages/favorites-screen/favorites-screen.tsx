@@ -1,9 +1,6 @@
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Header from '../../components/header/header';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offer } from '../../types/offer';
-import { useEffect } from 'react';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/favorite-process/selectors';
 
@@ -15,14 +12,6 @@ type AccType = {
 };
 
 export default function FavoritesScreen({ authorizationStatus }: FavoritesScreenProps): JSX.Element {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.NoAuth) {
-      navigate(AppRoute.Root);
-    }
-  }, [authorizationStatus, navigate]);
-
   const offers: Offer[] = useAppSelector(getFavoriteOffers());
 
   const dict = offers.reduce<{ [key: string]: Offer[] }>((acc: AccType, offer: Offer) => {
