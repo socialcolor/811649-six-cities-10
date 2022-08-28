@@ -13,16 +13,19 @@ export default function SendCommentForm({ offerId }: SendCommentFormProps): JSX.
   const [rating, setRating] = useState('');
   const [buttonState, setButtonState] = useState(true);
 
-  const { sending } = useAppSelector(getFormsError());
+  const { sending, error } = useAppSelector(getFormsError());
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setComment('');
-    setRating('');
-  }, [sending]);
+    if (sending === false && error === false) {
+      setComment('');
+      setRating('');
+    }
+  }, [sending, error]);
 
   useEffect(() => {
     setButtonState(comment.length < 50 || rating === '');
+    return () => setButtonState(false);
   }, [comment, rating]);
 
   const onFormSend = (evt: FormEvent<HTMLFormElement>): void => {
@@ -32,7 +35,6 @@ export default function SendCommentForm({ offerId }: SendCommentFormProps): JSX.
       comment: comment,
       rating: Number(rating),
     }));
-
   };
 
   return (
@@ -53,6 +55,7 @@ export default function SendCommentForm({ offerId }: SendCommentFormProps): JSX.
       </div>
       <textarea maxLength={300} className="reviews__textarea form__textarea" id="review" value={comment} name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={({ target }) => setComment(target.value)} disabled={sending}>{comment}
       </textarea>
+      {error && <p style={{color: 'red', fontWeight: 'bold',}}>Error sending. Try again</p>}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

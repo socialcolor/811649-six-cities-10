@@ -11,7 +11,7 @@ const initialState: OffersData = {
   nearbyOffers: [],
   formError: {
     sending: false,
-    text: null
+    error: false,
   },
 };
 
@@ -19,9 +19,6 @@ export const offersData = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
-    setFormError: (state) => {
-      state.formError.text = null;
-    },
     changeFavoriteOffer: (state, action) => {
       const offers = state.offers;
       const offer = offers.find((x) => x.id === action.payload);
@@ -63,13 +60,15 @@ export const offersData = createSlice({
       })
       .addCase(fetchSendCommentAction.pending, (state) => {
         state.formError.sending = true;
+        state.formError.error = false;
       })
-      .addCase(fetchSendCommentAction.rejected, (state, action) => {
-        state.formError.text = action.payload;
+      .addCase(fetchSendCommentAction.rejected, (state) => {
+        state.formError.sending = false;
+        state.formError.error = true;
       })
       .addCase(fetchSendCommentAction.fulfilled, (state, action) => {
-        state.formError.text = null;
         state.formError.sending = false;
+        state.formError.error = false;
         state.comment = state.comment = action.payload.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).splice(0, 10);
       })
       .addCase(fetchLoadNearbyOfferAction.fulfilled, (state, action) => {
@@ -78,4 +77,4 @@ export const offersData = createSlice({
   },
 });
 
-export const { setFormError, changeFavoriteOffer, changeFavoritePropertyOffer } = offersData.actions;
+export const { changeFavoriteOffer, changeFavoritePropertyOffer } = offersData.actions;
