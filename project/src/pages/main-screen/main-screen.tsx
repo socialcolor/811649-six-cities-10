@@ -6,7 +6,7 @@ import Map from '../../components/map/map';
 import { MouseEvent, useCallback, useState } from 'react';
 import { getOffers, getLoadOffersError } from '../../store/offers-data/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoute, city } from '../../const';
+import { AppRoute, City } from '../../const';
 import { changeCity } from '../../store/filter-process/filter-process';
 import { getCurrentCityName } from '../../store/filter-process/selectors';
 import { Navigate } from 'react-router-dom';
@@ -48,7 +48,7 @@ export default function MainScreen({ authorizationStatus }: MainScreenProps): JS
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {Object.keys(city).map((name) => (
+              {Object.keys(City).map((name) => (
                 <li key={name} className="locations__item">
                   <a className={currentCityName === name ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link'} data-city={name} onClick={onCitiesClick} href="/#">
                     <span>{name}</span>

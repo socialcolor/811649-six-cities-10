@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { city, NameSpace, SortName } from '../../const';
+import { City, NameSpace, SortName } from '../../const';
 import { FilterProcess } from '../../types/state';
 
 const initialState: FilterProcess = {
-  city: city.Amsterdam,
+  city: City.Paris,
   currentSort: SortName.Popular,
 };
 
@@ -12,7 +12,7 @@ export const filterProcess = createSlice({
   initialState,
   reducers: {
     changeCity: (state, action) => {
-      state.city = city[action.payload];
+      state.city = City[action.payload];
     },
     setCurrentSort: (state, action) => {
       state.currentSort = action.payload;

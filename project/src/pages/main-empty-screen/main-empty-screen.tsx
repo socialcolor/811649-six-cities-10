@@ -2,7 +2,7 @@
 import Header from '../../components/header/header';
 import { MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoute, city } from '../../const';
+import { AppRoute, City } from '../../const';
 import { changeCity } from '../../store/filter-process/filter-process';
 import { getCurrentCityName } from '../../store/filter-process/selectors';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +35,7 @@ export default function MainEpmtyScreen({ authorizationStatus }: MainEpmtyScreen
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {Object.keys(city).map((name) => (
+              {Object.keys(City).map((name) => (
                 <li key={name} className="locations__item">
                   <a className={currentCityName === name ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link'} data-city={name} onClick={onCitiesClick} href="/#">
                     <span>{name}</span>

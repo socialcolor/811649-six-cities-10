@@ -31,7 +31,7 @@ const SortTitles = {
   [SortName.Top]: 'Top rated first',
 };
 
-const city: CityNameType = {
+const City: CityNameType = {
   Paris: {
     name: 'Paris',
     location: {
@@ -114,4 +114,4 @@ export enum NameSpace {
   Favorite = 'FAVORITE',
 }
 
-export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, city, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute, LabelTitle };
+export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, City, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute, LabelTitle };
