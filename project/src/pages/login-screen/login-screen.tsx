@@ -1,11 +1,12 @@
 import { FormEvent, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, City } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFormUserError } from '../../store/user-process/selectors';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 import './login-screen.css';
+import { changeCity } from '../../store/filter-process/filter-process';
 
 type LoginScreenProps = {
   authorizationStatus: string;
@@ -18,12 +19,14 @@ export default function LoginScreen({ authorizationStatus }: LoginScreenProps): 
   const text = useAppSelector(getFormUserError());
   const dispatch = useAppDispatch();
 
+  const cities = Object.values(City);
+  const cityName = cities[Math.floor(Math.random() * cities.length)].name;
+
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       navigate(AppRoute.Root);
     }
   }, [authorizationStatus, navigate]);
-
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -38,6 +41,10 @@ export default function LoginScreen({ authorizationStatus }: LoginScreenProps): 
         password: passwordRef.current.value,
       });
     }
+  };
+
+  const onClickCity = () => {
+    dispatch(changeCity(cityName));
   };
 
   return (
@@ -71,9 +78,9 @@ export default function LoginScreen({ authorizationStatus }: LoginScreenProps): 
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" to={AppRoute.Root} onClick={onClickCity}>
+                <span>{cityName}</span>
+              </Link>
             </div>
           </section>
         </div>
