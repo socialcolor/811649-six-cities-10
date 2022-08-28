@@ -7,4 +7,3 @@ export const getComment = () => (state: State) => state[NameSpace.Data].comment;
 export const getNearbyOffers = () => (state: State) => state[NameSpace.Data].nearbyOffers;
 export const getDataLoaded = () => (state: State) => state[NameSpace.Data].isDataLoaded;
 export const getFormsError = () => (state: State) => state[NameSpace.Data].formError;
-export const getLoadOffersError = () => (state: State) => state[NameSpace.Data].errorLoadOffers;
