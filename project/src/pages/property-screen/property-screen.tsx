@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getOffer, getComment, getNearbyOffers } from '../../store/offers-data/selectors';
-import { Offer } from '../../types/offer';
 import { calcRating } from '../../utils';
 import Header from '../../components/header/header';
 import Review from '../../components/review/review';
@@ -32,18 +31,16 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
     dispatch(fetchLoadNearbyOfferAction(currentOfferId));
   }, [dispatch, currentOfferId]);
 
-  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-
   const offer = useAppSelector(getOffer());
   const review = useAppSelector(getComment());
   const nearOffers = useAppSelector(getNearbyOffers());
-  const onOutOfOffer = () => {
-    setActiveOffer(null);
-  };
+  // const onOutOfOffer = () => {
+  //   setActiveOffer(null);
+  // };
 
-  const onOfferHover = (hoveredOffer: Offer) => {
-    setActiveOffer(hoveredOffer);
-  };
+  // const onOfferHover = (hoveredOffer: Offer) => {
+  //   setActiveOffer(hoveredOffer);
+  // };
 
   const favoiteClickHandler = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -140,13 +137,13 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
               </section>
             </div>
           </div>
-          <Map offers={nearOffers} activeOffer={activeOffer} size={{ width: '100%', height: '579px' }} />
+          <Map offers={nearOffers} size={{ width: '100%', height: '579px' }} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((nearOffer) => <NearPlaces key={nearOffer.id} offer={nearOffer} onOfferHover={onOfferHover} onOutOfOffer={onOutOfOffer} />)}
+              {nearOffers.map((nearOffer) => <NearPlaces key={nearOffer.id} offer={nearOffer} />)}
             </div>
           </section>
         </div>

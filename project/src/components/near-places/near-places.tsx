@@ -2,25 +2,13 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import { calcRating } from '../../utils';
-import { MouseEvent } from 'react';
 
 type NearPlacesProps = {
   offer: Offer
-  onOfferHover: (offer: Offer) => void;
-  onOutOfOffer: () => void;
 }
-export default function NearPlaces({ offer, onOfferHover, onOutOfOffer }: NearPlacesProps): JSX.Element {
-  const offerHoverHandler = (event: MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-    if (onOfferHover) {
-      onOfferHover(offer);
-    }
-  };
-
-  const outOfOfferHandler = () => onOutOfOffer();
-
+export default function NearPlaces({ offer }: NearPlacesProps): JSX.Element {
   return (
-    <article className="near-places__card place-card" onMouseEnter={offerHoverHandler} onMouseLeave={outOfOfferHandler}>
+    <article className="near-places__card place-card">
       {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
       <div className="near-places__image-wrapper place-card__image-wrapper">
         <Link to={AppRoute.Room.replace(':id', (offer.id).toString())}>

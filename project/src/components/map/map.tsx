@@ -10,7 +10,7 @@ import { getCurrentCity } from '../../store/filter-process/selectors';
 
 type MapProps = {
   offers: Offers;
-  activeOffer: Offer | null;
+  activeOffer?: Offer | null;
   size?: {
     height?: string;
     width?: string;
