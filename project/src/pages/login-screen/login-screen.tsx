@@ -64,7 +64,7 @@ export default function LoginScreen({ authorizationStatus }: LoginScreenProps): 
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className={text ? 'login__input form__input login__input--error' : 'login__input form__input'} type="password" name="password" placeholder="Password" required ref={passwordRef} />
+                <input className={text ? 'login__input form__input login__input--error' : 'login__input form__input'} type="password" name="password" placeholder="Password" required ref={passwordRef} pattern='(?=.*\d)(?=.*[a-z]).{2,}' title='Must contain at least one number and letter, and at least 2 or more characters' />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
