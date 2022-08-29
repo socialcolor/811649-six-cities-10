@@ -1,7 +1,6 @@
 import { Offer, Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferAction, fetchLoadOffersAction, fetchSendCommentAction } from '../api-actions';
-// import { OffersData } from '../../types/state';
 import { changeFavoriteOffer, changeFavoritePropertyOffer, offersData } from './offers-data';
 
 describe('Reducer offers data', () => {
