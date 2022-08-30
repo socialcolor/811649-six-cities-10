@@ -24,7 +24,7 @@ export default function Review({ review }: ReviewProps): JSX.Element {
             </div>
           </div>
           <p className="reviews__text">{review.comment}</p>
-          <time className="reviews__time" dateTime="2019-04-24">{dayjs(review.date).format('MMMM YYYY')}</time>
+          <time className="reviews__time" dateTime={dayjs(review.date).format('YYYY-MM-DD')}>{dayjs(review.date).format('MMMM YYYY')}</time>
         </div>
       </li>
     </ul>
