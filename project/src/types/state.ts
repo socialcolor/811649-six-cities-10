@@ -7,7 +7,7 @@ import { UserData } from './user-data';
 
 export type OffersData = {
   offers: Offer[],
-  propertyOffer: Offer | null | undefined,
+  propertyOffer: Offer | null,
   isDataLoaded: boolean,
   comment: Reviews | null,
   nearbyOffers: Offer[];

@@ -54,14 +54,10 @@ export const offersData = createSlice({
       .addCase(fetchLoadOffersAction.rejected, (state) => {
         state.isDataLoaded = false;
       })
-      .addCase(fetchLoadOfferAction.pending, (state) => {
-        state.propertyOffer = null;
-      })
       .addCase(fetchLoadOfferAction.fulfilled, (state, action) => {
-        state.propertyOffer = action.payload;
-      })
-      .addCase(fetchLoadOfferAction.rejected, (state) => {
-        state.propertyOffer = undefined;
+        if(action.payload) {
+          state.propertyOffer = action.payload;
+        }
       })
       .addCase(fetchLoadCommentAction.fulfilled, (state, action) => {
         state.comment = action.payload.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).splice(0, 10);

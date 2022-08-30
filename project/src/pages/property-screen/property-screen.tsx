@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getOffer, getComment, getNearbyOffers } from '../../store/offers-data/selectors';
 import { calcRating } from '../../utils';
@@ -46,10 +45,6 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
       navigate(AppRoute.Login);
     }
   };
-
-  if (offer === undefined) {
-    return <Navigate to={AppRoute.NotFoundScreen} />;
-  }
 
   return (
     <div className="page">

@@ -38,9 +38,13 @@ export const fetchLoadOffersAction = createAsyncThunk<Offer[], undefined, AsyncT
   return data;
 });
 
-export const fetchLoadOfferAction = createAsyncThunk<Offer, number, AsyncThunkType>('data/fetchLoadOffer', async (id, { dispatch, extra: api }) => {
-  const { data } = await api.get<Offer>(APIRoute.Offer.replace(':id', (id).toString()));
-  return data;
+export const fetchLoadOfferAction = createAsyncThunk<Offer | void, number, AsyncThunkType>('data/fetchLoadOffer', async (id, { dispatch, extra: api }) => {
+  try {
+    const { data } = await api.get<Offer>(APIRoute.Offer.replace(':id', (id).toString()));
+    return data;
+  } catch {
+    dispatch(redirect(AppRoute.NotFoundScreen));
+  }
 });
 
 export const fetchLoadCommentAction = createAsyncThunk<Reviews, number, AsyncThunkType>('data/fetchLoadComment', async (id, { dispatch, extra: api }) => {
