@@ -27,6 +27,14 @@ export const offersData = createSlice({
       }
       state.offers = [...offers];
     },
+    changeFavoriteNearbyOffers: (state, action) => {
+      const offers = state.nearbyOffers;
+      const offer = offers.find((x) => x.id === action.payload);
+      if(offer) {
+        offer.isFavorite = !offer.isFavorite;
+      }
+      state.nearbyOffers = [...offers];
+    },
     changeFavoritePropertyOffer: (state) => {
       if(state.propertyOffer) {
         state.propertyOffer.isFavorite = !state.propertyOffer.isFavorite;
@@ -77,4 +85,4 @@ export const offersData = createSlice({
   },
 });
 
-export const { changeFavoriteOffer, changeFavoritePropertyOffer } = offersData.actions;
+export const { changeFavoriteOffer, changeFavoritePropertyOffer, changeFavoriteNearbyOffers } = offersData.actions;

@@ -1,7 +1,7 @@
 import { Offer, Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { fetchLoadCommentAction, fetchLoadNearbyOfferAction, fetchLoadOfferAction, fetchLoadOffersAction, fetchSendCommentAction } from '../api-actions';
-import { changeFavoriteOffer, changeFavoritePropertyOffer, offersData } from './offers-data';
+import { changeFavoriteNearbyOffers, changeFavoriteOffer, changeFavoritePropertyOffer, offersData } from './offers-data';
 
 describe('Reducer offers data', () => {
   const state = {
@@ -18,6 +18,12 @@ describe('Reducer offers data', () => {
   it('should add Favorite Offer', () => {
     const offerId = 1;
     expect(offersData.reducer(state, { type: changeFavoriteOffer.type, payload: offerId }))
+      .toEqual(state);
+  });
+
+  it('should add nearbyOffers Offer', () => {
+    const offerId = 1;
+    expect(offersData.reducer(state, { type: changeFavoriteNearbyOffers.type, payload: offerId }))
       .toEqual(state);
   });
 

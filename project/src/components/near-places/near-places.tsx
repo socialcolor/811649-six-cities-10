@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchChangeFavorite } from '../../store/api-actions';
-import { changeFavoriteOffer, changeFavoritePropertyOffer } from '../../store/offers-data/offers-data';
+import { changeFavoriteOffer, changeFavoriteNearbyOffers } from '../../store/offers-data/offers-data';
 import {getAuthStatus} from '../../store/user-process/selectors';
 import { Offer } from '../../types/offer';
 import { calcRating } from '../../utils';
@@ -19,7 +19,7 @@ export default function NearPlaces({ offer }: NearPlacesProps): JSX.Element {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(fetchChangeFavorite({ id: offer.id, isFavorite: !offer.isFavorite }));
       dispatch(changeFavoriteOffer(offer.id));
-      dispatch(changeFavoritePropertyOffer());
+      dispatch(changeFavoriteNearbyOffers(offer.id));
     } else {
       navigate(AppRoute.Login);
     }
