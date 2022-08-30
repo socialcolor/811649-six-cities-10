@@ -51,7 +51,7 @@ export default function App(): JSX.Element {
           <Route path={AppRoute.Room} element={<PropertyScreen authorizationStatus={authorizationStatus} />} />
           <Route path={AppRoute.NotFoundScreen} element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
           <Route path={AppRoute.MainEmptyScreen} element={<MainEpmtyScreen authorizationStatus={authorizationStatus} />} />
-          <Route path="*" element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
+          <Route path={AppRoute.Other} element={<NotFoundScreen authorizationStatus={authorizationStatus} />} />
         </Routes>
       </HistoryRouter>
 
