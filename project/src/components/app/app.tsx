@@ -10,7 +10,7 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import { fetchLoadOffersAction, fetchLoadFavoriteAction } from '../../store/api-actions';
+import { fetchLoadOffersAction } from '../../store/api-actions';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthStatus } from '../../store/user-process/selectors';
@@ -22,7 +22,6 @@ export default function App(): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchLoadOffersAction());
-    dispatch(fetchLoadFavoriteAction());
   }, [dispatch]);
 
   const authorizationStatus = useAppSelector(getAuthStatus());

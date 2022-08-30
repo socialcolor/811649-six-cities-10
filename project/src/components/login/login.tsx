@@ -1,15 +1,20 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../store/api-actions';
+import { fetchLoadFavoriteAction, logoutAction } from '../../store/api-actions';
 import { getUserData } from '../../store/user-process/selectors';
 import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import { useEffect } from 'react';
 
 export default function Login(): JSX.Element {
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLoadFavoriteAction());
+  }, [dispatch]);
+
   const user = useAppSelector(getUserData());
   const favorite = useAppSelector(getFavoriteOffers());
-
   return (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
