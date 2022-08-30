@@ -1,7 +1,6 @@
 import { Review as ReviewType } from '../../types/review';
 import dayjs from 'dayjs';
 import { calcRating } from '../../utils';
-import React from 'react';
 
 type ReviewProps = {
   review: ReviewType;

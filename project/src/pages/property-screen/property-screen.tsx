@@ -35,7 +35,7 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
   const review = useAppSelector(getComment());
   const nearOffers = useAppSelector(getNearbyOffers());
 
-  const favoiteClickHandler = () => {
+  const onFavoriteClickHandler = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       if (offer) {
         dispatch(fetchChangeFavorite({ id: offer.id, isFavorite: !offer.isFavorite }));
@@ -72,7 +72,7 @@ export default function PropertyScreen({ authorizationStatus }: PropertyScreenPr
               <div className="property__name-wrapper">
                 <h1 className="property__name">{offer && offer.title}</h1>
                 <button className={offer && offer.isFavorite ? 'property__bookmark-button button property__bookmark-button--active' : 'property__bookmark-button button'} type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33" onClick={favoiteClickHandler}>
+                  <svg className="property__bookmark-icon" width="31" height="33" onClick={onFavoriteClickHandler}>
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>

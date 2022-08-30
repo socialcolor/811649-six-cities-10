@@ -52,7 +52,7 @@ export const offersData = createSlice({
       .addCase(fetchLoadOfferAction.fulfilled, (state, action) => {
         state.propertyOffer = action.payload;
       })
-      .addCase(fetchLoadOfferAction.rejected, (state, action) => {
+      .addCase(fetchLoadOfferAction.rejected, (state) => {
         state.propertyOffer = undefined;
       })
       .addCase(fetchLoadCommentAction.fulfilled, (state, action) => {
