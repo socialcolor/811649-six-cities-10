@@ -45,22 +45,12 @@ describe('Reducer offers data', () => {
 
   it('should load offers rejected', () => {
     expect(offersData.reducer(state, { type: fetchLoadOffersAction.rejected }))
-      .toEqual({ ...state, isDataLoaded: false });
-  });
-
-  it('should load offer pending', () => {
-    expect(offersData.reducer(state, { type: fetchLoadOfferAction.pending }))
-      .toEqual({ ...state, propertyOffer: null });
+      .toEqual({ ...state, offers: [], isDataLoaded: false });
   });
 
   it('should load offer fulfilled', () => {
     expect(offersData.reducer(state, { type: fetchLoadOfferAction.fulfilled, payload: {} as Offer }))
       .toEqual({ ...state, propertyOffer: {} as Offer });
-  });
-
-  it('should load offer rejected', () => {
-    expect(offersData.reducer(state, { type: fetchLoadOfferAction.rejected }))
-      .toEqual({ ...state, propertyOffer: undefined });
   });
 
   it('should load comment fulfilled', () => {
