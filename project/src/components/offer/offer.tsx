@@ -70,7 +70,7 @@ function Offer({ offer, onOfferHover, onOutOfOffer }: OfferProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/#">{offer.title}</a>
+          <Link to={AppRoute.Room.replace(':id', (offer.id).toString())}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
