@@ -1,7 +1,5 @@
 import { CityNameType } from './types/city-name';
 
-const ACTIVE_OFFER_ID = 0;
-
 const enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -82,7 +80,6 @@ const City: CityNameType = {
     }
   }
 };
-const zoom = 12;
 
 const URL_MARKER_DEFAULT = '/img/pin.svg';
 
@@ -115,4 +112,4 @@ export enum NameSpace {
   Favorite = 'FAVORITE',
 }
 
-export { AppRoute, AuthorizationStatus, SortName, SortTitles, ACTIVE_OFFER_ID, City, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, zoom, APIRoute, LabelTitle };
+export { AppRoute, AuthorizationStatus, SortName, SortTitles, City, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, APIRoute, LabelTitle };
