@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
+import './not-found-screen.css';
 
 type NotFoundScreenProps = {
   authorizationStatus: string;
@@ -19,9 +20,9 @@ export default function NotFoundScreen({authorizationStatus}: NotFoundScreenProp
       </header>
 
       <main className="page__main">
-        <section style={{textAlign: 'center'}}>
+        <section className="page__not-found-section">
           <h1>404. Not Found Pages</h1>
-          <Link to="/" style={{ fontSize: '24px', fontWeight: 'bold', textDecoration: 'underline', color: 'blue', }}>Back to index</Link>
+          <Link className="page__not-found-link" to="/">Back to index</Link>
         </section>
       </main>
     </div>
