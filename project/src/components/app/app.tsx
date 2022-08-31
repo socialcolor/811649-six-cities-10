@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import IconArrowSelected from '../icon-arrow-select/icon-arrow-select';
+import IconArrowSelect from '../icon-arrow-select/icon-arrow-select';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
@@ -11,7 +11,7 @@ import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { fetchLoadOffersAction } from '../../store/api-actions';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import { getAuthStatus } from '../../store/user-process/selectors';
 import { getDataLoaded } from '../../store/offers-data/selectors';
@@ -35,7 +35,7 @@ export default function App(): JSX.Element {
 
   return (
     <React.Fragment>
-      <IconArrowSelected />
+      <IconArrowSelect />
       <HistoryRouter history={browserHistory}>
 
         <ScrollToTop />
