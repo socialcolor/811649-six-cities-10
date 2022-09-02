@@ -8,7 +8,7 @@ const initialState: FavoriteProcess = {
 };
 
 export const favoriteProcess = createSlice({
-  name: NameSpace.Data,
+  name: NameSpace.Favorite,
   initialState,
   reducers: {},
   extraReducers(builder) {

@@ -63,6 +63,11 @@ describe('Reducer offers data', () => {
       .toEqual({ ...state, formError: { ...state.formError, sending: true, error: false } });
   });
 
+  it('should send comment sending rejected', () => {
+    expect(offersData.reducer(state, { type: fetchSendCommentAction.rejected }))
+      .toEqual({ ...state, formError: { ...state.formError, sending: false, error: true } });
+  });
+
   it('should load comment when  fetchSendCommentAction.fulfilled', () => {
     expect(offersData.reducer(state, { type: fetchSendCommentAction.fulfilled, payload: [] as Reviews }))
       .toEqual({ ...state, comment: [] as Reviews, formError: { ...state.formError, sending: false, error: false } });
